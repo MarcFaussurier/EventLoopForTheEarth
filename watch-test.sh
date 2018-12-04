@@ -7,7 +7,7 @@ source utils.sh
 ico=$(pwd)/images/test.png; # Icon of the image used for notifications
 success=$(pwd)/images/success.png; # Icon of the image used for notifications
 fail=$(pwd)/images/fail.png; # Icon of the image used for notifications
-dirs="./src/ ./plugins/ ./tests/"
+dirs="./src/ ./tests/"
 
 # Function called at each folder source code update
 function buildAndRun() {
