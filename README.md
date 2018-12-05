@@ -3,10 +3,10 @@
 This boiler plate is meant to be use with 'header-only' libs only, so that it is really easy to add / update all your dependencies using GIT only.
 
 ## Features : 
-- GIT-based `dependencies manager written in bash` (See ./deps.sh file for sample, when adding a lib you'll also have to 
+- GIT-based `dependencies manager written in bash` (See ./deps file for sample, when adding a lib you'll also have to
 specify its folder in CMakeLists.txt)
 
-- ` Async functions for the shell` (see ./async.sh) so that you can quickly write nice bash scripts 
+- ` Async functions for the shell` (see ./async) so that you can quickly write nice bash scripts
 
 - `Source code watcher`, `written in bash` using inotifywait instead of a weird stuff. It will recompile your software and run it at each source code change 
 
@@ -19,7 +19,8 @@ specify its folder in CMakeLists.txt)
 - `./deps` Install or update your project dependencies 
 - `./make` Compile your software
 - `./run` Run your software
-- `./clean` Clean your repository (tests and CMake files) so that you can quickly release / version it 
+- `./run-tests` Run all your tests
+- `./clean` Clean your repository (tests, CMake files and all dependencies) so that you can quickly release / version it
 - `./watch` Will wait for source code change for compiling and running your application.
 - `./watch-test` Will wait for source code change for compiling and running your tests. It will then display a green or red icon at each time.
 

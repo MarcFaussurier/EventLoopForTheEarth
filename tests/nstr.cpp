@@ -22,6 +22,12 @@ TEST_CASE("true asserteee", "[report]")
     REQUIRE(true);
 }
 
+
+TEST_CASE("true asserteeesss", "[report]")
+{
+    REQUIRE(true);
+}
+
 // pomme de terre okok
 
 // asoe
