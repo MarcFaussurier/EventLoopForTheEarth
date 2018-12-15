@@ -2,6 +2,27 @@
 
 This boiler plate is meant to be use with 'header-only' libs only and traditional CMAKE libs so that it is really easy to add / update all your dependencies using GIT only.
 
+## Get started :
+`git clone https://github.com/MarcFaussurier/cmake-lua-shell-boilerplate.git yourproject`
+
+`cd yourproject`
+
+`./deps && ./make && ./run` (next time only use make and/or run)
+
+The base application (sources files are [/script.lua](https://github.com/MarcFaussurier/cmake-lua-shell-boilerplate/blob/master/script.lua)
+ and [/src/app.cpp](https://github.com/MarcFaussurier/cmake-lua-shell-boilerplate/blob/master/src/app.cpp)) should output :
+
+`The table the script received has:
+1	2
+2	4
+3	6
+4	8
+5	10
+Returning data back to C
+Script returned: 30`
+
+Congratulation you successfully ran your first lua script from C++ using luajit  ! 
+
 ## Features : 
 - GIT-based dependencies manager written in bash (See ./deps file for sample, when adding a lib you'll also have to
 specify its folder in CMakeLists.txt)
@@ -18,7 +39,7 @@ specify its folder in CMakeLists.txt)
 
 - Ready to use **header-only libraries**, rang for terminal output, a serializer, a json tool, a yaml tool, a test tool, and even a .env file. 
 
-## List of commands :
+## List of all commands :
 
 - `./deps` Install or update your project dependencies 
 - `./make` Compile your software
