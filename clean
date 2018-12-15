@@ -17,4 +17,3 @@ rmdir libs
 
 # removing compiled unit testing file
 rmfileifpresent test
-

@@ -1,4 +1,6 @@
-cmake-build-debug
+.vscode
 .idea
+cmake-build-debug
+cmake-modules
 tests
 libs

@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
 source utils
-#======================
-#   DEBIAN DEPS
-#======================
-sudo apt install  inotify-tools
 
-#======================
+#==========================================
+#   DEBIAN DEPS
+#==========================================
+# for desktop notifications
+sudo apt    install    inotify-tools
+
+#==========================================
 #   CPP DEPS
-#======================
+#==========================================
 cd ./libs;
 
 ## ---| lib name    branch          git repo |-------------------------- ##
 
+# luaJIT (scripting interpreter)
+install luajit      v2.1            https://github.com/MarcFaussurier/LuaJIT_CMake.git
 
 # rang (Terminal colour utility)
 install rang        master          https://github.com/agauniyal/rang.git;
@@ -30,6 +34,11 @@ install json        master          https://github.com/kazuho/picojson.git;
 
 # Serializer (Save / Load objects)
 install serializer  master          https://github.com/eyalz800/serializer.git;
+
+#==========================================
+#   CPP INSTALLABLE DEPS
+#==========================================
+cd ./luajit/ && cmake ./ && make && cd ./../
 
 
 cd ./../

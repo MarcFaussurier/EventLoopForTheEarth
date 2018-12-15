@@ -1,54 +1,45 @@
-#include <iostream>
-#include <csignal>
-#include <cstdlib>
-#include <cstdio>
-#include <unistd.h>
-#include <linux/limits.h>
 
-#include "rang.hpp"
-#include "dotenv.h"
+#include <stdio.h>
+#include <lua.hpp>
+#include <lualib.h>
+#include <lauxlib.h>
 
-using namespace std;
-using namespace dotenv;
+static void close_state(lua_State **L) { lua_close(*L); }
+#define cleanup(x) __attribute__((cleanup(x)))
+#define auto_lclose cleanup(close_state)
 
-void stopHandler(int s){
-    cout << rang::style::reset << endl;
-    cout <<  rang::fg::red << "Stopping your aweasome application..." << rang::fg::reset << endl;
-}
-
-char pathToRoot[] = "./../configs/.env";
-
-
-void loadEnv() {
-    char resolved_path[PATH_MAX];
-    realpath(pathToRoot, resolved_path);
-    string str = string(resolved_path);
-
-    auto& dotenv = env;
-    dotenv.config(str);
-    dotenv.instance();
-    cout << "Hello, " << dotenv["USER"] << std::endl;
-}
-
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    // register the CTRL + C to a custom handler
-    struct sigaction sigIntHandler;
-    sigIntHandler.sa_handler = stopHandler;
-    sigemptyset(&sigIntHandler.sa_mask);
-    sigIntHandler.sa_flags = 0;
-    sigaction(SIGINT, &sigIntHandler, NULL);
+    auto_lclose lua_State *L = luaL_newstate();
+    if (!L)
+        return 1;
+    luaL_openlibs(L);
 
-    // start message
-    cout << rang::style::reset << endl;
-    cout <<  rang::fg::green << "Starting your aweasome application..." << rang::fg::reset << endl;
+    if (argc > 1) {
+        luaL_loadfile(L, argv[1]);
+        int ret = lua_pcall(L, 0, 0, 0);
+        if (ret != 0) {
+            fprintf(stderr, "%s\n", lua_tostring(L, -1));
+            return 1;
+        }
+    }
 
-    // load the configuration file
-    loadEnv();
-
-    // wait for a key to exit
-    int x; cin >> x;
+    lua_getglobal(L, "address");
+    lua_getglobal(L, "port");
+    printf("address: %s, port: %ld\n",
+           lua_tostring(L, -2), lua_tointeger(L, -1));
+    lua_settop(L, 0);
     return 0;
 }
 
 
+
+/*
+#include <iostream>
+
+using namespace std;
+
+int main(int argc, char *argv[])
+{
+    cout << "Hello world" << endl;
+}*/
