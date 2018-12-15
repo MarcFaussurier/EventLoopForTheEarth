@@ -26,7 +26,7 @@ specify its folder in CMakeLists.txt)
 - `./run-tests` Run all your tests
 - `./clean` Clean your repository (tests, CMake files and all dependencies) so that you can quickly release / version it
 - `./watch` Will wait for source code change for compiling and running your application.
-- `./watch-test` Will wait for source code change for compiling and running your tests. It will then display a green or red icon at each time.
+- `./watch-test` Will wait for source code change for compiling and running your tests. It will then send you a desktop notification with a green or red icon according your tests results at each time.
 
 
 
