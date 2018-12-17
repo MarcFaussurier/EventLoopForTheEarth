@@ -60,33 +60,8 @@ specify its include folders in CMakeLists.txt and/or compilation commands in bot
 - `./watch-test` Will wait for source code change for compiling and running your tests. It will then send you a desktop notification with a green or red icon according your tests results at each time.
 
 
-// THE WHAT THE FUCK LICENSE APPLY FROM ALL STUDENTS / TEACHER, OR ANY NON-COMMERCIAL PROJECTS. 
+EVERY STUDENTS / TEACHER, OR ANY NON-COMMERCIAL PROJECTS OBVIOUSLY DON'T NEED A COMMERCIAL LICENSE. 
 
-// ELSE PLEASE READ THE LICENSE.txt TERMS.
+FOR COMMERCIAL PROJECTS, PLEASE READ THE LICENSE.txt TERMS (no 18 is the custom one).
 
- <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
- <input type="hidden" name="cmd" value="_s-xclick">
- <input type="hidden" name="hosted_button_id" value="UZ8VDC38CNGAQ">
- <table>
- <tr><td><input type="hidden" name="on0" value="Amount of employees [from;to]">Amount of employees [from;to]</td></tr><tr><td><select name="os0">
- 	<option value="[1;10] employees">[1;10] employees : €5,00 EUR - yearly</option>
- 	<option value="[11;20] employees">[11;20] employees : €10,00 EUR - yearly</option>
- 	<option value="[21;50] employees">[21;50] employees : €50,00 EUR - yearly</option>
- 	<option value="[51;100] employees">[51;100] employees : €150,00 EUR - yearly</option>
- 	<option value="[41;200] employees">[41;200] employees : €400,00 EUR - yearly</option>
- 	<option value="[201;499] employees">[201;499] employees : €600,00 EUR - monthly</option>
- 	<option value="[500;999] employees">[500;999] employees : €1 200,00 EUR - yearly</option>
- 	<option value="[1000;1999] employees">[1000;1999] employees : €1 800,00 EUR - yearly</option>
- 	<option value="[2000;4999] employees">[2000;4999] employees : €5 000,00 EUR - yearly</option>
- 	<option value="5000+ employees">5000+ employees : €100 000,00 EUR - yearly</option>
- </select> </td></tr>
- </table>
- <input type="hidden" name="currency_code" value="EUR">
- <input type="image" src="https://www.paypalobjects.com/en_US/FR/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
- <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
- </form>
-
-  
-
-
-
+The per-business commercial license is available online using a paypal button at https://ipolitic.world. 
