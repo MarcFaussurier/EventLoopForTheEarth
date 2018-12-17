@@ -28,10 +28,12 @@ Congratulation you successfully ran your first lua script from C++ using luajit 
 
 ## Features 
 
+-  **Bundled with ready to use minimalists libraries**, such as [rang](https://github.com/agauniyal/rang) for beautiful terminal output, [catch2](https://github.com/catchorg/Catch2.git) for intuitive application testing,  [cpp-dotenv](https://github.com/adeharo9/cpp-dotenv) because the .env file extension follow our vision of programming, [picojson](https://github.com/kazuho/picojson.git) as in a web-2.0 world, jsons are everywhere and [eyalz800/serializer](https://github.com/eyalz800/serializer) as everyone may need serialisation.
+
 - **Tiny GIT-based dependencies manager written in bash** (See ./deps file for sample, when adding a lib you'll also have to
 specify its folder in CMakeLists.txt)
 
--  **Async functions for the shell** (see ./async) so that you can quickly write nice bash scripts
+- **Async functions for the shell** (see ./async) so that you can quickly write nice bash scripts
 
 - **Source code watcher written in bash** using inotifywait instead of a weird stuff. It will recompile your software and run it at each source code change 
 
@@ -40,8 +42,6 @@ specify its folder in CMakeLists.txt)
 - **Read-to-use LuaJIT** provided with a sample cpp and lua file 
 
 - Easy to understand & CLion compatible, **CMAKE build script** 
-
-- Bundled with ready to use minimalists **libraries**, such as [rang](https://github.com/agauniyal/rang) for beautiful terminal output, [catch2](https://github.com/catchorg/Catch2.git) for intuitive application testing,  [cpp-dotenv](https://github.com/adeharo9/cpp-dotenv) because the .env file extension follow our vision of programming, [picojson](https://github.com/kazuho/picojson.git) as in a web-2.0 world, jsons are everywhere and [eyalz800/serializer](https://github.com/eyalz800/serializer) as everyone may need serialisation.
 
 ## Project commands (pure bash)
 
