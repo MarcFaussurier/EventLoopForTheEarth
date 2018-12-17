@@ -34,7 +34,7 @@ Congratulation you successfully ran your first lua script from C++ using luajit 
    * [cpp-dotenv](https://github.com/adeharo9/cpp-dotenv) because the .env file extension follow our vision of programming
    * [picojson](https://github.com/kazuho/picojson.git) as in a web-2.0 world, jsons are everywhere 
    * [eyalz800/serializer](https://github.com/eyalz800/serializer) as everyone may need serialisation.
-   * [RaptorJIT](https://github.com/raptorjit/raptorjit.git) is also bundleded as Lua is the easiest interpreted language that is really C / C++ friendly, and as original Mike Pall's creation (LuaJIT) is aweasome in term of performances but a bit too big / complex for beeing understandable for a majority of programmers and for beeing compatible with our vision of programming. 
+   * [LuaJIT](https://github.com/MarcFaussurier/LuaJIT_CMake) is also bundleded as Lua is the easiest interpreted language that is really C / C++ friendly, and as original [Mike Pall's creation](http://luajit.org/) is aweasome in term of performances. Also, [Lua](https://www.lua.org/) perfectly match our vision of minimalism programing.
 
 - **Tiny GIT-based dependencies manager written in bash** (See ./deps file for samples, when adding a lib you'll also have to
 specify its include folders in CMakeLists.txt and/or compilation commands in bottom of ./deps file )
@@ -45,7 +45,7 @@ specify its include folders in CMakeLists.txt and/or compilation commands in bot
 
 - **TDD-Compliant test watcher written in bash** using still inotifywait it will recompile your tests and will display a green or red icon (using notify-send) according your tests results to your desktop.
 
-- **Read-to-use RaptorJIT (LuaJIT)** provided with a sample cpp and lua file. Bash scripts are fine, but lua scripts are better for making your software extensible. 
+- **Read-to-use LuaJIT ** provided with a sample cpp and lua file. Bash scripts are fine, but lua scripts are better for making your software extensible. 
 
 - Easy to understand & CLion compatible, **CMAKE build script** 
 
