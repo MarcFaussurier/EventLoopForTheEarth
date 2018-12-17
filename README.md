@@ -1,6 +1,6 @@
 # C++ Linux boiler plate featuring ready-to-use useful bash scripts and libs.
 
-The goal of this repository is to provide the easiest sample about how to use C(++) ecosystems in a portable environement with  still productivity in mind. The setup is about 3 shells commands
+The goal of this repository is to provide the easiest sample about how to use C(++) ecosystems in a portable environement with  still productivity in mind. The setup is about 3 shells commands only (see Get started bellow). Happy coding !
 
 ## Get started :
 `git clone https://github.com/MarcFaussurier/cmake-lua-shell-boilerplate.git yourproject`
