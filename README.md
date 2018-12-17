@@ -1,5 +1,7 @@
-# C++ Linux boiler plate featuring ready-to-use useful bash scripts and libs.
+# C(++) unix boilerplate (=projet sample) featuring ready-to-use useful bash scripts and more
 
+Minimalism is art. So, coding with minimalism in mind is more than art.
+______________________________
 The goal of this repository is to provide the easiest sample about how to use C(++) ecosystems in a portable environement with  still productivity in mind. The setup is about 3 shells commands only (see Get started bellow). Happy coding !
 
 ## Get started :
