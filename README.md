@@ -45,7 +45,7 @@ specify its include folders in CMakeLists.txt and/or compilation commands in bot
 
 - **TDD-Compliant test watcher written in bash** using still inotifywait it will recompile your tests and will display a green or red icon (using notify-send) according your tests results to your desktop.
 
-- **Read-to-use RaptorJIT (LuaJIT)** provided with a sample cpp and lua file 
+- **Read-to-use RaptorJIT (LuaJIT)** provided with a sample cpp and lua file. Bash scripts are fine, but lua scripts are better for making your software extensible. 
 
 - Easy to understand & CLion compatible, **CMAKE build script** 
 
