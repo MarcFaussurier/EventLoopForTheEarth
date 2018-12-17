@@ -4,7 +4,7 @@ Minimalism is art. So, coding with minimalism in mind is more than art.
 ______________________________
 The goal of this repository is to provide the easiest sample about how to use C(++) ecosystems in a portable environement with  still productivity in mind. The setup is about 3 shells commands only (see Get started bellow). Happy coding !
 
-## Get started :
+## Get started
 `git clone https://github.com/MarcFaussurier/cmake-lua-shell-boilerplate.git yourproject`
 
 `cd yourproject`
@@ -25,7 +25,7 @@ Script returned: 30`
 
 Congratulation you successfully ran your first lua script from C++ using luajit  ! 
 
-## Features : 
+## Features 
 
 - **Tiny GIT-based dependencies manager written in bash** (See ./deps file for sample, when adding a lib you'll also have to
 specify its folder in CMakeLists.txt)
@@ -42,7 +42,7 @@ specify its folder in CMakeLists.txt)
 
 - Ready to use **header-only libraries**, rang for terminal output, a serializer, a json tool, a yaml tool, a test tool, and even a .env file. 
 
-## List of all commands :
+## Project commands (pure bash)
 
 - `./deps` Install or update your project dependencies 
 - `./make` Compile your software
