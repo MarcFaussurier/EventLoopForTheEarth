@@ -24,7 +24,7 @@ Script returned: 30`
 Congratulation you successfully ran your first lua script from C++ using luajit  ! 
 
 ## Features : 
-- GIT-based dependencies manager written in bash (See ./deps file for sample, when adding a lib you'll also have to
+- **Tiny GIT-based dependencies manager written in bash** (See ./deps file for sample, when adding a lib you'll also have to
 specify its folder in CMakeLists.txt)
 
 -  **Async functions for the shell** (see ./async) so that you can quickly write nice bash scripts
