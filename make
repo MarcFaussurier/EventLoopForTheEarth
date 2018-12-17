@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-source utils
-cd ./cmake-build-debug && cmake ./../ && make
+
+source utils;
+cd ./cmake-build-debug && cmake ./../ && make;

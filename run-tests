@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-g++ ./tests/nstr.cpp -o ./test && ./test
+
+cd ./cmake-build-debug;
+cmake ./../;
+make;
+./tests;
+cd ./../;

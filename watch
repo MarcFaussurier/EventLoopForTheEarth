@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
 
-source async
-source utils
+source async;
+source utils;
 
 # Configuration
-ico=$(pwd)/images/cpp.png   # Icon of the image used for notifications
-dirs="./src/"               # Folders to watch
+ico=$(pwd)/images/cpp.png;   # Icon of the image used for notifications
+dirs="./src/";               # Folders to watch
 
 # Function called at each folder source code update
 function buildAndRun() {
-    notify-send ---urgency=low -t 1000 -i "${ico}" "Source code updated!" "File update detected in one of these folders ${dirs}, now re-compiling ..."
+    removePreviousNotifications;
+    notify-send ---urgency=low -t 1000 -i "${ico}" "Source code updated!" "File update detected in one of these folders ${dirs}, now re-compiling ...";
     make;
-    notify-send --urgency=low -t 1000 -i "${ico}" "Compilation done!" "Now running the software ..."
+    removePreviousNotifications;
+    notify-send --urgency=low -t 1000 -i "${ico}" "Compilation done!" "Now running the software ...";
     run;
 };
 
 # Start watcher
-watch "${dirs}" buildAndRun
+watch "${dirs}" buildAndRun;
 

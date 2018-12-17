@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.11)
 project(nalp)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake-modules)
 
@@ -20,11 +21,19 @@ set(ENV{PATH} ${PROJECT_SOURCE_DIR}/libs/luajit)
 include(FindLuaJIT)
 include_directories(${LUAJIT_INCLUDE_DIR})
 
-# The nalp executable
-add_executable(nalp src/app.cpp)
+
+# Build the nalp test executable
+add_executable(tests tests/index.cpp)
 
 # Link luajit library
-target_link_libraries(nalp ${LUAJIT_LIBRARIES})
+target_link_libraries(tests ${LUAJIT_LIBRARIES})
+
+# Build nalp executable
+add_executable(nalpexe src/app.cpp)
+
+# Link luajit library
+target_link_libraries(nalpexe ${LUAJIT_LIBRARIES})
+
 
 # Output directory
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY /cmake-build-debug)

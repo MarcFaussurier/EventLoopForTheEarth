@@ -1,27 +1,29 @@
 #!/usr/bin/env bash
 
-source async
-source utils
+source async;
+source utils;
 
 # Configuration
-ico=$(pwd)/images/test.png;         # Icon of the image used for notifications
-success=$(pwd)/images/success.png;  # Tests success icon
-fail=$(pwd)/images/fail.png;        # Tests failed icon
-dirs="./src/ ./tests/"              # Folders to watch
+ico=$(pwd)/images/test.png;          # Icon of the image used for notifications
+success=$(pwd)/images/success.png;   # Tests success icon
+fail=$(pwd)/images/fail.png;         # Tests failed icon
+dirs="./src/ ./tests/";              # Folders to watch
 
 # Function called at each folder source code update
 function buildAndTest() {
-    notify-send --urgency=low -t 1000 -i "${ico}" "Tests source code updated!" "File update detected in one of these folders ${dirs}, now re-compiling the tests..."
-    g++ ./tests/nstr.cpp -o ./test &&
-    # notify-send --urgency=low -t 1000 -i "${ico}" "Compilation done!" "Now running the tests ..."
-    ./test
+    # We run tests
+   removePreviousNotifications;
+    echo "Compiling and running tests."
+    notify-send --urgency=low -t 1000 -i "${ico}" "Now compiling tests..." "Please wait few seconds or minute according your project size (from ${dirs}).";
+    ./make;
+    ./cmake-build-debug/tests;
+    removePreviousNotifications;
     if [[ $? == "0" ]]; then
-        notify-send --urgency=critical -t 1000 -i "${success}" "TEST PASSED !!" "Congratulation, sir!"
+        notify-send --urgency=critical -t 1000 -i "${success}" "TEST PASSED !!" "Congratulation, sir!";
     else
-        notify-send --urgency=critical -t 1000 -i "${fail}" "TESTS FAILED !!" "Please fix your code before pushing it, sir!"
+        notify-send --urgency=critical -t 1000 -i "${fail}" "TESTS FAILED !!" "Please fix your code before pushing it, sir!";
     fi;
-    echo "RET : $?";
 };
 
 # Start watcher
-watch "${dirs}" buildAndTest
+watch "${dirs}" buildAndTest;

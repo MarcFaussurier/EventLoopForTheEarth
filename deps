@@ -1,41 +1,33 @@
 #!/usr/bin/env bash
-source utils
 
-#==========================================
-#   DEBIAN DEPS
-#==========================================
-# for desktop notifications
-sudo apt    install    inotify-tools
+source utils;
 
-#==========================================
-#   CPP DEPS
-#==========================================
-cd ./libs;
 
-## ---| lib name    branch          git repo |-------------------------- ##
+goToLibs;#============================================================================================================#
+#  DEPS                                                                                                         ~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#/
+# * DEBIAN :
+sudo apt install    inotify-tools;
+sudo apt install    cmake;
+# * C(++) :
+##--| lib name |---| branch |------| git repo |------------------------------------------| (c)make command(s) |------#\
 
-# luaJIT (scripting interpreter)
-install luajit      v2.1            https://github.com/MarcFaussurier/LuaJIT_CMake.git
+# luaJIT (scripting interpreter)                                                                                      #
+install luajit      v2.1            https://github.com/MarcFaussurier/LuaJIT_CMake.git  "cmake ./ && make";
 
-# rang (Terminal colour utility)
+# rang (Terminal colour utility)                                                                                      #
 install rang        master          https://github.com/agauniyal/rang.git;
 
-# Catch2 (Unit testing framework)
+# Catch2 (Unit testing framework)                                                                                     #
 install catch2      master          https://github.com/catchorg/Catch2.git;
 
-# DotEnv (.env file parser)
+# DotEnv (.env file parser)                                                                                           #
 install cpp-dotenv  master          https://github.com/adeharo9/cpp-dotenv.git;
 
-# Json (A .json parser)
+# Json (A .json parser)                                                                                               #
 install json        master          https://github.com/kazuho/picojson.git;
 
-# Serializer (Save / Load objects)
+# Serializer (Save / Load objects)                                                                                    #
 install serializer  master          https://github.com/eyalz800/serializer.git;
 
-#==========================================
-#   CPP INSTALLABLE DEPS
-#==========================================
-cd ./luajit/ && cmake ./ && make && cd ./../
-
-
-cd ./../
+checkForRemovedDependencies; #  ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~

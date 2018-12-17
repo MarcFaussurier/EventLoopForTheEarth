@@ -1,9 +1,10 @@
  GNU GENERAL PUBLIC LICENSE
-                       Version 3, 29 June 2007
-
+                       Version 3, 29 June 2007, updated on the 17th December 2019
  Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
  Everyone is permitted to copy and distribute verbatim copies
  of this license document, but changing it is not allowed.
+ ___________________________________________________________________________________________________________
+ Updated on 17th december for the CWithMinimalism github project (see 18. Additional note bellow)
 
                             Preamble
 
@@ -611,12 +612,27 @@ SUCH DAMAGES.
 
   17. Interpretation of Sections 15 and 16.
 
-  If the disclaimer of warranty and limitation of liability provided
-above cannot be given local legal effect according to their terms,
-reviewing courts shall apply local law that most closely approximates
-an absolute waiver of all civil liability in connection with the
-Program, unless a warranty or assumption of liability accompanies a
-copy of the Program in return for a fee.
+If the disclaimer of warranty and limitation of liability provided above
+cannot be given local legal effect according to their terms,reviewing
+courts shall apply local law that most closely approximates an absolute
+waiver of all civil liability in connection with the Program, unless a
+warranty or assumption of liability accompanies a copy of the Program in
+return for a fee.
+
+
+  18. Additional note
+
+Please note that the client business needs a commercial license only if it
+gonna sell a software ( or a licensed software ) built using CWith Minimalism.
+The license provide to client business bug fixes and on-demand reasonable
+customisations. License is available at faussurier.marc@icloud.com.
+Also, where the traditional GPL V3.0 force the client business to distribute its
+sources codes, this additional note allow businesses to keep their sources codes
+secret during 16 months after the license buy date. The goal of thisrule  is to
+encourage small and medium business to slowly participate to the free world,
+without even disturbing  their development phase. Businesses are allowed to release
+their updated code base 16 months after their respectively update update. This rule
+aim to help innovation.
 
                      END OF TERMS AND CONDITIONS
 
