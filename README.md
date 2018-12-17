@@ -36,8 +36,8 @@ Congratulation you successfully ran your first lua script from C++ using luajit 
    * [eyalz800/serializer](https://github.com/eyalz800/serializer) as everyone may need serialisation.
    * [RaptorJIT](https://github.com/raptorjit/raptorjit.git) is also bundleded as Lua is the easiest interpreted language that is really C / C++ friendly, and as original Mike Pall's creation (LuaJIT) is aweasome in term of performances but a bit too big / complex for beeing understandable for a majority of programmers and for beeing compatible with our vision of programming. 
 
-- **Tiny GIT-based dependencies manager written in bash** (See ./deps file for sample, when adding a lib you'll also have to
-specify its folder in CMakeLists.txt)
+- **Tiny GIT-based dependencies manager written in bash** (See ./deps file for samples, when adding a lib you'll also have to
+specify its include folders in CMakeLists.txt and/or compilation commands in bottom of ./deps file )
 
 - **Async functions for the shell** (see ./async) so that you can quickly write nice bash scripts
 
