@@ -1,6 +1,6 @@
 # C(++) unix boilerplate (=projet sample) featuring ready-to-use useful bash scripts and more
 
-[C with minimalism logo](https://github.com/MarcFaussurier/CWithMinimalism/raw/master/images/CWM.png)
+![C with minimalism logo](https://github.com/MarcFaussurier/CWithMinimalism/raw/master/images/CWM.png)
 
 Minimalism is art. So, coding with minimalism in mind makes you an artist.
 ______________________________
