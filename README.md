@@ -41,7 +41,7 @@ specify its folder in CMakeLists.txt)
 
 - Easy to understand & CLion compatible, **CMAKE build script** 
 
-- Ready to use **header-only libraries**, rang for terminal output, a serializer, a json tool, a yaml tool, a test tool, and even a .env file. 
+- Bundled with ready to use minimalists **libraries**, such as [rang](https://github.com/agauniyal/rang) for beautiful terminal output, [catch2](https://github.com/catchorg/Catch2.git) for intuitive application testing,  [cpp-dotenv](https://github.com/adeharo9/cpp-dotenv) because the .env file extension follow our vision of programming, [picojson](https://github.com/kazuho/picojson.git) as in a web-2.0 world, jsons are everywhere and [eyalz800/serializer](https://github.com/eyalz800/serializer) as everyone may need serialisation.
 
 ## Project commands (pure bash)
 
