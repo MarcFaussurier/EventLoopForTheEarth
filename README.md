@@ -29,11 +29,12 @@ Congratulation you successfully ran your first lua script from C++ using luajit 
 ## Features 
 
 -  **Bundled with ready to use minimalists libraries**
-   * [rang](https://github.com/agauniyal/rang) for beautiful terminal output, [catch2](https://github.com/catchorg/Catch2.git) for intuitive application testing
+   * [rang](https://github.com/agauniyal/rang) for beautiful terminal output
+   * [catch2](https://github.com/catchorg/Catch2.git) for intuitive application testing
    * [cpp-dotenv](https://github.com/adeharo9/cpp-dotenv) because the .env file extension follow our vision of programming
    * [picojson](https://github.com/kazuho/picojson.git) as in a web-2.0 world, jsons are everywhere 
    * [eyalz800/serializer](https://github.com/eyalz800/serializer) as everyone may need serialisation.
-   * [RaptorJIT](https://github.com/raptorjit/raptorjit.git) is also bundleded as Lua is the easiest interpreted language that is really C / C++ friendly, and as Mike Pall's creation is aweasome in term of performances but a bit too big / complex for beeing understandable for a majority of programmers and for beeing compatible with our vision of programming. 
+   * [RaptorJIT](https://github.com/raptorjit/raptorjit.git) is also bundleded as Lua is the easiest interpreted language that is really C / C++ friendly, and as original Mike Pall's creation (LuaJIT) is aweasome in term of performances but a bit too big / complex for beeing understandable for a majority of programmers and for beeing compatible with our vision of programming. 
 
 - **Tiny GIT-based dependencies manager written in bash** (See ./deps file for sample, when adding a lib you'll also have to
 specify its folder in CMakeLists.txt)
