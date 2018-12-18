@@ -9,6 +9,9 @@ goToLibs;#======================================================================
 # * DEBIAN :
 sudo apt install    inotify-tools;
 sudo apt install    cmake;
+sudo apt install    openssl;
+sudo apt install    libssl-dev;
+
 # * C(++) :
 ##--| lib name |---| branch |------| git repo |------------------------------------------| (c)make command(s) |------#\
 
