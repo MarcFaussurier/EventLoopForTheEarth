@@ -4,6 +4,9 @@ project(nalp)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake-modules)
 
+# Local path to luajit
+set(ENV{PATH} ${PROJECT_SOURCE_DIR}/libs/luajit)
+
 # Loading all header-only deps
 function(load path)
     include_directories(${PROJECT_SOURCE_DIR}/libs/${path})
@@ -15,12 +18,14 @@ load("json")
 load("serializer")
 load("yaml-cpp/include/yaml-cpp/src")
 load("yaml-cpp/src")
+load("uws/src")
+load("uws/uSockets/src")
 
-# Link lua jit sources
-set(ENV{PATH} ${PROJECT_SOURCE_DIR}/libs/luajit)
 include(FindLuaJIT)
-include_directories(${LUAJIT_INCLUDE_DIR})
+include(FindOpenSSL)
+include(FindUSockets)
 
+include_directories(${LUAJIT_INCLUDE_DIR})
 
 # Build the nalp test executable
 add_executable(tests tests/index.cpp)
@@ -33,6 +38,10 @@ add_executable(nalpexe src/app.cpp)
 
 # Link luajit library
 target_link_libraries(nalpexe ${LUAJIT_LIBRARIES})
+
+# Build the UWS test executable
+add_executable(helloWorld libs/uws/examples/HelloWorld.cpp ${USOCKETS_SOURCES})
+target_link_libraries(helloWorld ${OPENSSL_LIBRARIES})
 
 
 # Output directory

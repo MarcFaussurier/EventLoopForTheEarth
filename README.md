@@ -28,13 +28,14 @@ Congratulation you successfully ran your first lua script from C++ using luajit 
 
 ## Features 
 
--  **Bundled with ready to use minimalists libraries**
+-  **Bundled with ready to use minimalists-compliant libraries**
    * [rang](https://github.com/agauniyal/rang) for beautiful terminal output
    * [catch2](https://github.com/catchorg/Catch2.git) for intuitive application testing
    * [cpp-dotenv](https://github.com/adeharo9/cpp-dotenv) because the .env file extension follow our vision of programming
    * [picojson](https://github.com/kazuho/picojson.git) as in a web-2.0 world, jsons are everywhere 
    * [eyalz800/serializer](https://github.com/eyalz800/serializer) as everyone may need serialisation.
    * [LuaJIT](https://github.com/MarcFaussurier/LuaJIT_CMake) is also bundleded as Lua is the easiest interpreted language that is really C / C++ friendly, and as original [Mike Pall's creation](http://luajit.org/) is aweasome in term of performances. Also, [Lua](https://www.lua.org/) perfectly match our vision of minimalism programing.
+   * [uWebSockets](https://github.com/uNetworking/uWebSockets) for easy to use http / websockets server
 
 - **Tiny GIT-based dependencies manager written in bash** (See ./deps file for samples, when adding a lib you'll also have to
 specify its include folders in CMakeLists.txt and/or compilation commands in bottom of ./deps file )
@@ -62,6 +63,6 @@ specify its include folders in CMakeLists.txt and/or compilation commands in bot
 
 EVERY STUDENTS / TEACHER, OR ANY NON-COMMERCIAL PROJECTS OBVIOUSLY DON'T NEED A COMMERCIAL LICENSE. 
 
-FOR COMMERCIAL PROJECTS, PLEASE READ THE LICENSE.txt TERMS (no 18 is the custom one).
-
-The per-business commercial license is available online using a paypal button at https://ipolitic.world. 
+FOR COMMERCIAL PROJECTS, PLEASE READ THE LICENSE.txt TERMS (no 18 is the custom one). 
+ 
+ https://ipolitic.world. 

@@ -41,7 +41,7 @@ function install {
         printf "${GREEN} Installing${NC} => ${CYAN}$1${NC} (@$2) ... \n";
         mkdir -p ${1};
         printf "Cloning from $3 \n";
-        git clone ${3} -b $2 ./${1};
+        git clone ${3} -b $2 ./${1} --recursive;
     # else we update it
     else
         printf "${GREEN} Updating${NC} => ${CYAN}$1${NC} (@$2) ... \n";

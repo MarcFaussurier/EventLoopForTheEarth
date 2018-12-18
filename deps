@@ -30,4 +30,7 @@ install json        master          https://github.com/kazuho/picojson.git;
 # Serializer (Save / Load objects)                                                                                    #
 install serializer  master          https://github.com/eyalz800/serializer.git;
 
+# µWebSockets                                                                                                         #
+install uws         master          https://github.com/uNetworking/uWebSockets.git
+
 checkForRemovedDependencies; #  ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
