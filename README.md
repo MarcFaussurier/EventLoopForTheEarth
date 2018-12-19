@@ -60,9 +60,3 @@ specify its include folders in CMakeLists.txt and/or compilation commands in bot
 - `./watch` Will wait for source code change for compiling and running your application.
 - `./watch-test` Will wait for source code change for compiling and running your tests. It will then send you a desktop notification with a green or red icon according your tests results at each time.
 
-
-EVERY STUDENTS / TEACHER, OR ANY NON-COMMERCIAL PROJECTS OBVIOUSLY DON'T NEED A COMMERCIAL LICENSE. 
-
-FOR COMMERCIAL PROJECTS, PLEASE READ THE LICENSE.txt TERMS (no 18 is the custom one). 
- 
- https://ipolitic.world. 
