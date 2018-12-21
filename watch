@@ -10,10 +10,10 @@ dirs="./src/";               # Folders to watch
 # Function called at each folder source code update
 function buildAndRun() {
     removePreviousNotifications;
-    notify-send ---urgency=low -t 1000 -i "${ico}" "Source code updated!" "File update detected in one of these folders ${dirs}, now re-compiling ...";
+    notify-send -i "${ico}" "Source code updated!" "File update detected in one of these folders ${dirs}, now re-compiling ...";
     make;
     removePreviousNotifications;
-    notify-send --urgency=low -t 1000 -i "${ico}" "Compilation done!" "Now running the software ...";
+    notify-send -i "${ico}" "Compilation done!" "Now running the software ...";
     run;
 };
 

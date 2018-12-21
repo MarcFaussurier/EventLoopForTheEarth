@@ -14,14 +14,14 @@ function buildAndTest() {
     # We run tests
    removePreviousNotifications;
     echo "Compiling and running tests."
-    notify-send --urgency=low -t 1000 -i "${ico}" "Now compiling tests..." "Please wait few seconds or minute according your project size (from ${dirs}).";
+    notify-send -i "${ico}" "Now compiling tests..." "Please wait few seconds or minute according your project size (from ${dirs}).";
     ./make;
     ./cmake-build-debug/tests;
     removePreviousNotifications;
     if [[ $? == "0" ]]; then
-        notify-send --urgency=critical -t 1000 -i "${success}" "TEST PASSED !!" "Congratulation, sir!";
+        notify-send -i "${success}" "TEST PASSED !!" "Congratulation, sir!";
     else
-        notify-send --urgency=critical -t 1000 -i "${fail}" "TESTS FAILED !!" "Please fix your code before pushing it, sir!";
+        notify-send -i "${fail}" "TESTS FAILED !!" "Please fix your code before pushing it, sir!";
     fi;
 };
 
