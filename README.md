@@ -1,6 +1,8 @@
 ![C with minimalism logo](https://github.com/MarcFaussurier/CWithMinimalism/raw/master/images/CWM.png)
 
-Programmers shall think to the polution against better than anyone else.  IT MANAGERS HAVE TO CHANGE THEIR FALSE POINT OF VIEW "Hardware is cheap, developers are expensives", THEY ARE WRONG BECAUSE THEY FORGOT THE POINT OF VIEW OF OUR EARTH. https://github.com/MarcFaussurier/CWithMinimalism )
+Programmers shall think to the polution against better than anyone else.  IT MANAGERS HAVE TO CHANGE THEIR FALSE POINT OF VIEW "Hardware is cheap, developers are expensives", THEY ARE WRONG BECAUSE THEY FORGOT THE POINT OF VIEW OF OUR EARTH. 
+
+This project is built using https://github.com/MarcFaussurier/CWithMinimalism 
 ______________________________
 
 The goal of this repository is to provide the easiest sample about how to use C(++) ecosystems in a portable environement with  still productivity in mind. The setup is about 3 shells commands only (see Get started bellow). Happy coding !
