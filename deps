@@ -15,9 +15,6 @@ sudo apt install    libssl-dev;
 # * C(++) :
 ##--| lib name |---| branch |------| git repo |------------------------------------------| (c)make command(s) |------#\
 
-# luaJIT (scripting interpreter)                                                                                      #
-install luajit      v2.1            https://github.com/MarcFaussurier/LuaJIT_CMake.git  "cmake ./ && make";
-
 # rang (Terminal colour utility)                                                                                      #
 install rang        master          https://github.com/agauniyal/rang.git;
 
