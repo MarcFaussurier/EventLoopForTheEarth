@@ -4,15 +4,15 @@ project(nalp)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake-modules)
 
-# Loading all dependencies
-function(load path)
-    include_directories(${PROJECT_SOURCE_DIR}/libs/${path})
-endfunction()
-load("catch2/single_include/catch2")
-load("rang/include")
-load("cpp-dotenv")
-load("json")
-load("serializer")
+set(PREFIX ${PROJECT_SOURCE_DIR}/libs/)
+
+include_directories("${PREFIX}catch2/single_include/catch2")
+include_directories("${PREFIX}PREFIXrang/include")
+include_directories("${PREFIX}PREFIXcpp-dotenv")
+include_directories("${PREFIX}json")
+include_directories("${PREFIX}serializer")
+include_directories("${PREFIX}promise")
+
 find_package(ZLIB)
 
 # Build the tests executable
