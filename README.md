@@ -4,7 +4,7 @@ Programmers shall think to the polution against better than anyone else.
 IT managers have to change their "Hardware is cheap, developers are expensives" point of view, they forgot `sustainable development`.
 Hardware (conception, utilisation and recycling) do pollute much more than few development hours.
 
-**We have to use minimal hardware resources we can.**
+**We have to use as minimal hardware and electricity resources as we can.**
 
 This project is built using https://github.com/MarcFaussurier/CWithMinimalism AND https://github.com/MarcFaussurier/promise-cpp
 ______________________________
