@@ -8,33 +8,64 @@
 #include <unistd.h>
 #include <mutex>
 #include <promise.hpp>
-
+#include "./AssociativeArray.h"
 using namespace std;
 using namespace promise;
 
-#define output_func_name() do{ printf("in function %s, line %d\n", __func__, __LINE__); } while(0)
+#include <bits/stdc++.h>
 
+struct action {
+    string UID;                 // the unique identifier so that we can profile routine and optimise thread amount
+    function<void()> callback;  // the callback that will be ran later
+};
+
+struct action_plurial_stats {
+    std::chrono::system_clock::time_point start;
+    std::chrono::system_clock::duration duration;
+};
+
+struct vec_action_stats {
+    vector<action_plurial_stats> executionTimes;
+};
+
+const auto maxActiveReactorTime = std::chrono::milliseconds(10);    // after 10 ms, action will be sent to an other reactor
 
 class Reactor {
+    AssocArray<vec_action_stats> * actionStats;
 public:
     mutex baction_mutex;
-    Reactor() = default;
+    Reactor(AssocArray<vec_action_stats> * actionStats) {
+        this->actionStats = actionStats;
+    }
     thread rThread;
-    vector<function<void()>> actions;
+    vector<action> actions;
     bool shouldStop = false;
     void reactorThread() {
         while(!shouldStop) {
             if(!actions.empty()) {
                 baction_mutex.lock();
-                function<void()> func = actions.at(0);
+                action currentAction = actions.at(0);
                 actions.erase(actions.begin());
                 baction_mutex.unlock();
-                func();
+                auto pointA = chrono::system_clock::time_point::clock::now();
+                currentAction.callback();
+                auto pointB = chrono::system_clock::time_point::clock::now();
+                auto duration = chrono::system_clock::duration(pointB - pointA);
+                auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+                cout << "Execution of " << currentAction.UID << " took : " << int_ms.count() << " ms " << endl;
+                action_plurial_stats aps{pointA, duration};
+                if (actionStats->IsItem(currentAction.UID)) {
+                    actionStats->operator[](currentAction.UID).executionTimes.push_back(aps);
+                } else {
+                    vec_action_stats vec;
+                    vec.executionTimes.push_back(aps);
+                    actionStats->AddItem(currentAction.UID, vec);
+                }
             }
         }
     }
 
-    void insertAction(function<void()> action) {
+    void insertAction(action action) {
         baction_mutex.lock();
         this->actions.push_back(action);
         baction_mutex.unlock();
@@ -47,14 +78,21 @@ public:
     }
 };
 class EventLoop {
+    //map<string, map >
     bool shouldStop = false;
     vector<Reactor*> reactors;
     thread rThread;
-    vector<function<void()>> actions;
+    vector<action> actions;
+    AssocArray<vec_action_stats> actionStats;
+
     static const int nb_reactor = 4; // max count of reactor
     int nnb_reactor = 0;
     mutex action_mutex;
 public:
+    AssocArray<vec_action_stats> getAssocArrCpy() {
+        return this->actionStats;
+    }
+
     int getMinReactor() {
         int minIndex = 0;
         int minVal = (int) reactors[minIndex]->actions.size();
@@ -71,25 +109,26 @@ public:
             if(!actions.empty()) {
                 action_mutex.lock();
                 int minIndex = getMinReactor();
-                function<void()> func = actions.at(0);
+                action currentAction = actions.at(0);
                 actions.erase(actions.begin());
-                cout << "action #" << actions.size() << " sent to thread " << minIndex << " (" << reactors[minIndex]->actions.size()  <<" length) " << endl;
+                cout << "action #" << actions.size() << " ("<<currentAction.UID<<") sent to thread " << minIndex << " (" << reactors[minIndex]->actions.size()  <<" length) " << endl;
                 action_mutex.unlock();
-                reactors[minIndex]->insertAction(func);
+                reactors[minIndex]->insertAction(currentAction);
             }
         }
     }
 
-    void insertAction(function<void()> action) {
+    void insertAction(string UID, function<void()> callback) {
+        action insertedAction{UID, callback};
         action_mutex.lock();
-        this->actions.push_back(action);
+        this->actions.push_back(insertedAction);
         action_mutex.unlock();
     }
     EventLoop(int n) {
         nnb_reactor = n > 0 ? n : nb_reactor;
         for (int i = 0; i < nnb_reactor; i++) {
             cout << "Starting reactor #" << i << endl;
-            reactors.push_back(new Reactor());
+            reactors.push_back(new Reactor(&actionStats));
             reactors[i]->run();
         }
     }
@@ -109,63 +148,15 @@ public:
     }
 };
 
-void test1() {
-    output_func_name();
+/* Create new promise object */
+template <typename FUNC>
+inline Defer bNewPromise(EventLoop * el, string UID, FUNC func) {
+    Defer promise = newHeadPromise();
+    el->insertAction(UID, [promise, func]() -> void {
+        promise->run(func, promise);
+    });
+    return promise;
 }
-
-int test2() {
-    output_func_name();
-    return 5;
-}
-
-void test3(int n) {
-    output_func_name();
-    printf("n = %d\n", n);
-}
-
-Defer run(Defer &next){
-
-    return newPromise([](Defer d){
-        output_func_name();
-        d.resolve(3, 5, 6);
-    }).then([](const int &a, int b, int c) {
-                printf("%d %d %d\n", a, b, c);
-                output_func_name();
-            }).then([](){
-                output_func_name();
-            }).then([&next](){
-                output_func_name();
-                next = newPromise([](Defer d) {
-                    output_func_name();
-                });
-                //Will call next.resole() or next.reject() later
-                return next;
-            }).then([](int n, char c) {
-                output_func_name();
-                printf("n = %d, c = %c\n", (int)n, c);
-            }).fail([](char n){
-                output_func_name();
-                printf("n = %d\n", (int)n);
-            }).fail([](short n) {
-                output_func_name();
-                printf("n = %d\n", (int)n);
-            }).fail([](int &n) {
-                output_func_name();
-                printf("n = %d\n", (int)n);
-            }).fail([](const std::string &str) {
-                output_func_name();
-                printf("str = %s\n", str.c_str());
-            }).fail([](uint64_t n) {
-                output_func_name();
-                printf("n = %d\n", (int)n);
-            }).then(test1)
-            .then(test2)
-            .then(test3)
-            .always([]() {
-                output_func_name();
-            });
-}
-
 
 /***
  *
@@ -176,42 +167,67 @@ Defer run(Defer &next){
 
 int main ()
 {
-    Defer next;
-
-    run(next);
-    printf("======  after call run ======\n");
-
-    next.resolve(123, 'a');
-    //next.reject('c');
-
-
+    auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(maxActiveReactorTime);
+    cout << int_ms.count() << endl;
+    cout << "ms endl" << endl;
     auto el = new EventLoop( 5);
     el->run();
+
+    Defer nextTest = bNewPromise(el,"someTest", [](Defer d) -> void {
+        cout << "Promise before resolve" << endl;
+        d.resolve();
+    }).then([]() -> void {
+       cout << "After resolve" << endl;
+    });
+
 
     for(int i = 0; i < 10; i++) {
         // TODO :: ADD PARAMETERS SO THAT WE CAN PREDICT FUNCTION DURATION AND OPTIMISE THREADS REPARTITIONS
 
-        el->insertAction([i, &el]() -> void {
+        el->insertAction("testOne", [i, &el]() -> void {
             cout << "parent action no ° " << i << endl;
-            usleep(100000);
+            usleep(10);
 
-            el->insertAction([]() -> void {
+            el->insertAction("testTwo", []() -> void {
                 cout << "CHILD" << endl;
-                usleep(100000);
+                usleep(10);
             });
         });
     }
     sleep(5);
-    el->insertAction([&el]() -> void {
+    el->insertAction("testTree", [&el]() -> void {
         cout << "first action " << endl;
-        usleep(100000);
+        usleep(10);
 
-        el->insertAction([]() -> void {
+        el->insertAction("testFour", []() -> void {
             cout << "CHILD" << endl;
-            usleep(100000);
+            usleep(10);
         });
     });
+
+
+    el->insertAction("testTree", [&el]() -> void {
+        cout << "first action " << endl;
+        usleep(100);
+    });
+
+    el->insertAction("testTree", [&el]() -> void {
+        cout << "first action " << endl;
+        usleep(1000);
+    });
+
     sleep(3);
+
+
+    cout << "==========================================" << endl;
+    cout << "Benchmarking results  : " << endl;
+
+    AssocArray<vec_action_stats> cpy = el->getAssocArrCpy();
+    long amountOfActionName = cpy.Size();
+    for (long i = 0 ; i < amountOfActionName; i += 1) {
+        cout << "i="<<i<<" name="<<cpy.GetItemName(i) << " times="<<cpy.operator[](i).executionTimes.size() << endl;
+    }
+
     cout << "Stopping ... " << endl;
     el->stop();
     cout << "Shutdown" << endl;
