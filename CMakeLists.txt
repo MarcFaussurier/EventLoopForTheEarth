@@ -21,7 +21,7 @@ target_link_libraries(tests ${ZLIB_LIBRARIES})
 target_link_libraries(tests pthread)
 
 # Build the main executable
-add_executable(nalpexe src/app.cpp src/AssociativeArray.cpp src/AssociativeArray.h)
+add_executable(nalpexe src/app.cpp src/event_engine/Reactor.cpp src/event_engine/Reactor.h src/event_engine/EventLoop.cpp src/event_engine/EventLoop.h src/event_engine/bpromise.h)
 target_link_libraries(nalpexe ${ZLIB_LIBRARIES})
 target_link_libraries(nalpexe pthread)
 
