@@ -44,51 +44,20 @@ int main ()
     auto el = new EventLoop(CORE_THREADS_CNT);
     el->run();
 
-    Defer nextTest = bNewPromise(el,"someTest", [](Defer d) -> void {
+    Defer nextTest = bNewPromise(el,"someTest", [el](Defer d) -> void {
         cout << "Promise before resolve" << endl;
         d.resolve();
-    }).then([]() -> void {
+    }).then([el]() -> Defer {
        cout << "After resolve" << endl;
-    });
-
-
-    for(int i = 0; i < 10; i++) {
-        // TODO :: ADD PARAMETERS SO THAT WE CAN PREDICT FUNCTION DURATION AND OPTIMISE THREADS REPARTITIONS
-
-        el->insertAction("testOne", [i, &el]() -> void {
-            cout << "parent action no ° " << i << endl;
-            usleep(10);
-
-            el->insertAction("testTwo", []() -> void {
-                cout << "CHILD" << endl;
-                usleep(10);
-            });
+        return bNewPromise(el,"someTest2", [](Defer d) -> void {
+            cout << "Promise before resolve2" << endl;
+            d.resolve();
         });
-    }
-    sleep(5);
-    el->insertAction("testTree", [&el]() -> void {
-        cout << "first action " << endl;
-        usleep(10);
-
-        el->insertAction("testFour", []() -> void {
-            cout << "CHILD" << endl;
-            usleep(10);
-        });
+    }).then([]() -> void {
+        cout << "resolved2" << endl;
     });
 
-
-    el->insertAction("testTree", [&el]() -> void {
-        cout << "first action " << endl;
-        usleep(100);
-    });
-
-    el->insertAction("testTree", [&el]() -> void {
-        cout << "first action " << endl;
-        usleep(1000);
-    });
-
-    sleep(3);
-
+    sleep(4);
 
     cout << "==========================================" << endl;
     cout << "Benchmarking results  : " << endl;
