@@ -44,18 +44,20 @@ int main ()
     auto el = new EventLoop(CORE_THREADS_CNT);
     el->run();
 
-    Defer nextTest = bNewPromise(el,"someTest", [el](Defer d) -> void {
-        cout << "Promise before resolve" << endl;
-        d.resolve();
-    }).then([el]() -> Defer {
-       cout << "After resolve" << endl;
-        return bNewPromise(el,"someTest2", [](Defer d) -> void {
-            cout << "Promise before resolve2" << endl;
+    for (int i = 0; i < 10; i += 1) {
+        Defer nextTest = bNewPromise(el,"someTest", [el](Defer d) -> void {
+            cout << "Promise before resolve" << endl;
             d.resolve();
+        }).then([el]() -> Defer {
+            cout << "After resolve" << endl;
+            return bNewPromise(el,"someTest2", [](Defer d) -> void {
+                cout << "Promise before resolve2" << endl;
+                d.resolve();
+            });
+        }).then([]() -> void {
+            cout << "resolved2" << endl;
         });
-    }).then([]() -> void {
-        cout << "resolved2" << endl;
-    });
+    }
 
     sleep(4);
 
