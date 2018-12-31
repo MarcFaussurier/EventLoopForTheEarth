@@ -59,7 +59,7 @@ int main ()
         });
     }
 
-    sleep(4);
+    sleep(2);
 
     cout << "==========================================" << endl;
     cout << "Benchmarking results  : " << endl;
@@ -73,5 +73,6 @@ int main ()
     cout << "Stopping ... " << endl;
     el->stop();
     cout << "Shutdown" << endl;
+    el->initHistory();
     return 0;
 }

@@ -5,6 +5,8 @@
 #include "EventLoop.h"
 
 namespace ipolitic {
+    ofstream history;
+
     EventLoop::EventLoop(int n) {
         nnb_reactor = n > 0 ? n : nb_reactor;
         for (int i = 0; i < nnb_reactor; i++) {
@@ -12,6 +14,66 @@ namespace ipolitic {
             reactors.push_back(new Reactor(&actionStats));
             reactors[i]->run();
         }
+    }
+
+    void EventLoop::loadFromFile() {
+        string line;
+        ifstream myfile (EventLoop::cacheFileName);
+        AssociativeArray<vec_action_stats> gotHistory;
+        vec_action_stats currentItem;
+        if (myfile.is_open())
+        {
+            while ( getline (myfile,line) )
+            {
+                string bline(line);
+
+                std::size_t foundOne = bline.find(':');
+                std::size_t foundTwo = bline.find("=>");
+
+                if (foundOne != string::npos && foundTwo == string::npos) {
+                    cout << "ONE ITEM" << endl;
+                    currentItem = vec_action_stats();
+                    continue;
+                }
+                string leftSide = "";
+                string rightSide = "";
+
+                bool currentIsLeft = true;
+                int bSize = bline.length();
+
+                char lastTwoChars[2] = {'0','0'};
+
+                for (int i = 0; i < bSize; i += 1) {
+                    lastTwoChars[0] =  lastTwoChars[1];
+                    lastTwoChars[1] = line[i];
+
+                    if (lastTwoChars[0] == '=' && lastTwoChars[1] == '>') {
+                        leftSide = leftSide.substr(0, leftSide.length() - 2);
+                        cout << "CHANGED§!!!!!" << endl;
+                        currentIsLeft = false;
+                        continue;
+                    }
+
+                    if (currentIsLeft) {
+                        leftSide += line[i];
+                    } else {
+                        rightSide += line[i];
+                    }
+                }
+                cout << "left : " << leftSide << " right : " << rightSide << endl;
+                //cout << line << '\n';
+            }
+            myfile.close();
+        }
+
+        else cout << "Unable to open file";
+
+    }
+
+    void EventLoop::initHistory() {
+        ofstream outputFile;
+        outputFile.open(EventLoop::cacheFileName, ios::app);
+        this->loadFromFile();
     }
 
     AssociativeArray<vec_action_stats> EventLoop::getAssocArrCpy() {
