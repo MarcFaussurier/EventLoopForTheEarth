@@ -7,13 +7,20 @@ goToLibs;#======================================================================
 #  DEPS                                                                                                         ~
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#/
 # * DEBIAN :
-sudo apt install    inotify-tools;
-sudo apt install    cmake;
-sudo apt install    openssl;
-sudo apt install    libssl-dev;
+#sudo apt install    inotify-tools;
+#sudo apt install    cmake;
+#sudo apt install    openssl;
+#sudo apt install    libssl-dev;
 
+
+# MACOS : /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+#         brew install cmake
+#         brew install PkgConfig
+#          echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.bash_profile (set built in open ssl in env )
 # * C(++) :
 ##--| lib name |---| branch |------| git repo |------------------------------------------| (c)make command(s) |------#\
+# luaJIT (scripting interpreter)                                                                                      #
+install luajit      v2.1            https://github.com/MarcFaussurier/LuaJIT_CMake.git  "cmake ./ && make";
 
 # rang (Terminal colour utility)                                                                                      #
 install rang        master          https://github.com/agauniyal/rang.git;

@@ -30,33 +30,16 @@
 
 FIND_PATH(LUAJIT_INCLUDE_DIR lua.h
         HINTS
-        $ENV{LUAJIT_DIR}
-        PATH_SUFFIXES luajit-2.0 luajit2.0 luajit luajit-2.1
+        PATH_SUFFIXES src
         PATHS
-        ~/Library/Frameworks
-        /Library/Frameworks
-        /usr/local
-        /usr
-        /sw # Fink
-        /opt/local # DarwinPorts
-        /opt/csw # Blastwave
-        /opt
+        $ENV{LUAJIT_DIR}
         )
 
+
 FIND_LIBRARY(LUAJIT_LIBRARY
-        NAMES libluajit-51.a libluajit-5.1.a libluajit.a libluajit-5.1.so
-        HINTS
-        $ENV{LUAJIT_DIR}
-        PATH_SUFFIXES lib64 lib
+        NAMES libluajit-51.a libluajit-5.1.a libluajit-static.a libluajit-5.1.so
         PATHS
-        ~/Library/Frameworks
-        /Library/Frameworks
-        /usr/local
-        /usr
-        /sw
-        /opt/local
-        /opt/csw
-        /opt
+        $ENV{LUAJIT_DIR}
         )
 
 IF(LUAJIT_LIBRARY)
