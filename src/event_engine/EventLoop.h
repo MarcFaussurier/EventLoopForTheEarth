@@ -32,7 +32,7 @@ namespace ipolitic {
     public:
         const string cacheFileName = "actions-data.idk";
         AssociativeArray<vec_action_stats> getAssocArrCpy();
-
+        fstream datatime;
         int getMinReactor();
         void reactorThread();
         void loadFromFile();
@@ -42,6 +42,9 @@ namespace ipolitic {
         EventLoop(int n);
         void run();
         void stop();
+        void writeActionIfNotExists(string str) {
+
+        }
     };
 }
 

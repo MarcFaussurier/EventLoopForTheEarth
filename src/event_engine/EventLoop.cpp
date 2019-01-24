@@ -18,12 +18,12 @@ namespace ipolitic {
 
     void EventLoop::loadFromFile() {
         string line;
-        ifstream myfile (EventLoop::cacheFileName);
+        this->datatime = fstream(EventLoop::cacheFileName);
         AssociativeArray<vec_action_stats> gotHistory;
         vec_action_stats currentItem;
-        if (myfile.is_open())
+        if (this->datatime.is_open())
         {
-            while ( getline (myfile,line) )
+            while ( getline (this->datatime,line) )
             {
                 string bline(line);
 
@@ -31,7 +31,15 @@ namespace ipolitic {
                 std::size_t foundTwo = bline.find("=>");
 
                 if (foundOne != string::npos && foundTwo == string::npos) {
-                    cout << "ONE ITEM" << endl;
+                    char * linePtr = (char*) line.c_str();
+                    int gotKeySize = strlen(linePtr);
+                    char actionName[gotKeySize];
+                    int i = 0;
+                    for(; i < (gotKeySize - 1);i++) {
+                        actionName[i] = *(linePtr + i);
+                    }
+                    actionName[gotKeySize - 1] = '\0';
+                    cout << "ONE ITEM : "  << actionName << endl ;
                     currentItem = vec_action_stats();
                     continue;
                 }
@@ -63,7 +71,7 @@ namespace ipolitic {
                 cout << "left : " << leftSide << " right : " << rightSide << endl;
                 //cout << line << '\n';
             }
-            myfile.close();
+            this->datatime.close();
         }
 
         else cout << "Unable to open file";

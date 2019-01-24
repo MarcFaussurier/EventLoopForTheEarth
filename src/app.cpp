@@ -38,10 +38,13 @@ const auto maxActiveReactorTime = std::chrono::milliseconds(SEND_TO_SUB_THREAD_A
 
 int main ()
 {
+
+
     auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(maxActiveReactorTime);
     cout << int_ms.count() << endl;
     cout << "ms endl" << endl;
     auto el = new EventLoop(CORE_THREADS_CNT);
+    el->initHistory();
     el->run();
 
     for (int i = 0; i < 10; i += 1) {
@@ -73,6 +76,5 @@ int main ()
     cout << "Stopping ... " << endl;
     el->stop();
     cout << "Shutdown" << endl;
-    el->initHistory();
     return 0;
 }
