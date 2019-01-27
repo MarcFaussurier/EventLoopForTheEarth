@@ -1,4 +1,6 @@
 // promise example
+#include "./luatest.cpp"
+
 #include <iostream>       // cout
 #include <functional>     // ref
 #include <thread>         // thread
@@ -38,8 +40,7 @@ const auto maxActiveReactorTime = std::chrono::milliseconds(SEND_TO_SUB_THREAD_A
 
 int main ()
 {
-
-
+    run();
     auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(maxActiveReactorTime);
     cout << int_ms.count() << endl;
     cout << "ms endl" << endl;
