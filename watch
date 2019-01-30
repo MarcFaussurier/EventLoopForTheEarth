@@ -19,14 +19,14 @@ function buildAndRun() {
     elif [[ "$OSTYPE" == "linux-gnu" ]]; then
         notify-send -i "${ico}" "${recompile_title}" "${recompile_msg}";
     fi;
-    make;
+    ./make;
     removePreviousNotifications;
     if [[ "$OSTYPE" == "darwin"* ]]; then
         terminal-notifier -title "${recompile_done_title}" -message "${recompile_done_msg}"  -appIcon "${ico}"
     elif [[ "$OSTYPE" == "linux-gnu" ]]; then
         notify-send -i "${ico}" "${recompile_done_title}" "${recompile_done_msg}";
     fi;
-    run;
+    ./run;
 };
 
 # Start watcher

@@ -5,6 +5,7 @@
 #ifndef NALP_ACTION_H
 #define NALP_ACTION_H
 
+#include <string>
 #include <functional>
 #include <chrono>
 #include <vector>

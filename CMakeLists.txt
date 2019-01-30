@@ -36,7 +36,7 @@ add_executable(nalpexe src/app.cpp
         src/util/AssociativeArray.h     src/util/AssociativeArray.hpp
         src/event_engine/action.h       src/event_engine/bpromise.h
         src/event_engine/EventLoop.h    src/event_engine/EventLoop.cpp
-        src/event_engine/Reactor.h      src/event_engine/Reactor.cpp src/event_engine/Profiler.cpp src/event_engine/Profiler.h)
+        src/event_engine/Reactor.h      src/event_engine/Reactor.cpp src/event_engine/Profiler.cpp src/event_engine/Profiler.h src/event_engine/window.cpp)
 target_link_libraries(nalpexe ${LUAJIT_LIBRARIES})
 target_link_libraries(nalpexe ${OPENSSL_LIBRARIES})
 target_link_libraries(nalpexe ${ZLIB_LIBRARIES})

@@ -7,15 +7,31 @@ RETURN=0;
 
 # Wait for file update in given $1 folders, will then start $2 function in job1 process and store its job id in job1
 function watchFolders() {
-    # wait for source cide change in $1 folders
-    while inotifywait -e modify ${1}; do
-        # Kill the previous job1
-        killJob ${job1};
-        # Re-create it using the sync function
-        async $2;
-        # Store the job id in job1
-        job1=${RETURN}
-    done;
+    # MacOS
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        fswatch ${1} | (while read; do
+            # Kill the previous job1
+            killJob ${job1};
+            # Re-create it using the sync function
+            async $2;
+            # Store the job id in job1
+            job1=${RETURN};
+         done;)
+    # Linux
+    elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+        while inotifywait -e modify ${1}; do
+                # Kill the previous job1
+                killJob ${job1};
+                # Re-create it using the sync function
+                async $2;
+                # Store the job id in job1
+                job1=${RETURN};
+         done;
+    # Other os
+    else
+        printf "${RED} Your OS ${NC}${CYAN}$OSTYPE${NC}${RED} is not currently supported.${NC}\n";
+        exit 1;
+    fi;
 };
 
 # Will start the watcher using given callback and folders name
