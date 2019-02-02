@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include <vector>
+
+#ifndef NALP_ASSOCIATIVEARRAY_H
+#define NALP_ASSOCIATIVEARRAY_H
 using namespace std;
 
 namespace ipolitic {
@@ -16,6 +19,7 @@ namespace ipolitic {
             T data;
             string name;
         } Data ;
+
         vector<Data> stack;
     public:
         long Size();
@@ -32,3 +36,5 @@ namespace ipolitic {
 
     };
 }
+
+#endif //NALP_ASSOCIATIVEARRAY_H

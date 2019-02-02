@@ -30,21 +30,13 @@ namespace ipolitic {
         int nnb_reactor = 0;
         mutex action_mutex;
     public:
-        const string cacheFileName = "actions-data.idk";
         AssociativeArray<vec_action_stats> getAssocArrCpy();
-        fstream datatime;
         int getMinReactor();
         void reactorThread();
-        void loadFromFile();
-        void initHistory();
-        void saveAsFile();
         void insertAction(string UID, function<void()> callback);
         EventLoop(int n);
         void run();
         void stop();
-        void writeActionIfNotExists(string str) {
-
-        }
     };
 }
 

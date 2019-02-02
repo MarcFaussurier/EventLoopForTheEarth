@@ -1,8 +1,8 @@
 //
 // Created by marc on 29/12/18.
 //
-#ifndef NALP_ASSOCIATIVEARRAY_H
-#define NALP_ASSOCIATIVEARRAY_H
+#ifndef NALP_ASSOCIATIVEARRAY_HP
+#define NALP_ASSOCIATIVEARRAY_HP
 
 #include "AssociativeArray.h"
 namespace ipolitic {

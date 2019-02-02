@@ -2,86 +2,42 @@
 // Created by marc on 29/12/18.
 //
 
+#include <string>
+#include <math.h>
+#include <sstream>
+
+
 #include "EventLoop.h"
+
+#include "IDKParser.h"
+#include "ThreadGroup.h"
+
+using namespace std;
 
 namespace ipolitic {
     ofstream history;
 
     EventLoop::EventLoop(int n) {
         nnb_reactor = n > 0 ? n : nb_reactor;
-        for (int i = 0; i < nnb_reactor; i++) {
-            cout << "Starting reactor #" << i << endl;
-            reactors.push_back(new Reactor(&actionStats));
-            reactors[i]->run();
-        }
-    }
+        cout << "Starting event loop with " << nnb_reactor << " reactors. " << endl;
+        // creating threads groups using ThreadGroup.h
+        const char startChar    = 'A';
+        const char lastChar     = 'D';
 
-    void EventLoop::loadFromFile() {
-        string line;
-        this->datatime = fstream(EventLoop::cacheFileName);
-        AssociativeArray<vec_action_stats> gotHistory;
-        vec_action_stats currentItem;
-        if (this->datatime.is_open())
-        {
-            while ( getline (this->datatime,line) )
-            {
-                string bline(line);
+        AssociativeArray<float> threadsPerGroup = ThreadGroup::GetThreadsPerGroup(nnb_reactor);
 
-                std::size_t foundOne = bline.find(':');
-                std::size_t foundTwo = bline.find("=>");
-
-                if (foundOne != string::npos && foundTwo == string::npos) {
-                    char * linePtr = (char*) line.c_str();
-                    int gotKeySize = strlen(linePtr);
-                    char actionName[gotKeySize];
-                    int i = 0;
-                    for(; i < (gotKeySize - 1);i++) {
-                        actionName[i] = *(linePtr + i);
-                    }
-                    actionName[gotKeySize - 1] = '\0';
-                    cout << "ONE ITEM : "  << actionName << endl ;
-                    currentItem = vec_action_stats();
-                    continue;
-                }
-                string leftSide = "";
-                string rightSide = "";
-
-                bool currentIsLeft = true;
-                int bSize = bline.length();
-
-                char lastTwoChars[2] = {'0','0'};
-
-                for (int i = 0; i < bSize; i += 1) {
-                    lastTwoChars[0] =  lastTwoChars[1];
-                    lastTwoChars[1] = line[i];
-
-                    if (lastTwoChars[0] == '=' && lastTwoChars[1] == '>') {
-                        leftSide = leftSide.substr(0, leftSide.length() - 2);
-                        cout << "CHANGED§!!!!!" << endl;
-                        currentIsLeft = false;
-                        continue;
-                    }
-
-                    if (currentIsLeft) {
-                        leftSide += line[i];
-                    } else {
-                        rightSide += line[i];
-                    }
-                }
-                cout << "left : " << leftSide << " right : " << rightSide << endl;
-                //cout << line << '\n';
+        for (char i = startChar; i <= lastChar; i = (char) ( (int) i + 1) ) {
+            std::string s;
+            stringstream ss;
+            ss << i;
+            s = ss.str();
+            int nbThread = (int) round(threadsPerGroup.operator[](s));
+            for (int k = 0; k < nbThread; k += 1 ) {
+                cout << "Starting reactor #" << reactors.size() << " in group n° " << i << endl;
+                reactors.push_back(new Reactor(&actionStats));
+                reactors[reactors.size() - 1]->run();
             }
-            this->datatime.close();
         }
-
-        else cout << "Unable to open file";
-
-    }
-
-    void EventLoop::initHistory() {
-        ofstream outputFile;
-        outputFile.open(EventLoop::cacheFileName, ios::app);
-        this->loadFromFile();
     }
 
     AssociativeArray<vec_action_stats> EventLoop::getAssocArrCpy() {
@@ -121,6 +77,10 @@ namespace ipolitic {
     }
 
     void EventLoop::run() {
+        IDKParser idk;
+        idk.initHistory();
+        idk.loadFromFile();
+
         this->rThread = thread([this]() -> void {
             this->reactorThread();
         });

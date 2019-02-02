@@ -24,7 +24,7 @@ using namespace bpromise;
 
 
 
-const int CORE_THREADS_CNT = 4;
+const int CORE_THREADS_CNT = 8;
 const int SUB_THREAD_CNT = 2 * CORE_THREADS_CNT;
 const int SEND_TO_SUB_THREAD_AFTER_X_MS = 10;
 
@@ -45,7 +45,6 @@ int main ()
     cout << int_ms.count() << endl;
     cout << "ms endl" << endl;
     auto el = new EventLoop(CORE_THREADS_CNT);
-    el->initHistory();
     el->run();
 
     for (int i = 0; i < 10; i += 1) {

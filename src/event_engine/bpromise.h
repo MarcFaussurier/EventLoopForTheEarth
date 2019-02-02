@@ -15,7 +15,7 @@ namespace ipolitic {
 /* Create new promise object */
     template <typename FUNC>
     inline Defer bNewPromise(EventLoop * el, string UID, FUNC func) {
-        el->writeActionIfNotExists(UID);
+        // el->writeActionIfNotExists(UID);
         Defer promise = newHeadPromise();
         el->insertAction(UID, [promise, func]() -> void {
             promise->run(func, promise);
