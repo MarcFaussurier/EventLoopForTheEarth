@@ -40,17 +40,13 @@ namespace ipolitic {
         static char MsToChar(int ms) {
             if (ms >= D) {
                 return 'D';
-            }
-
-            if (ms >= C) {
+            } else if (ms >= C) {
                 return 'C';
-            }
-
-            if (ms >= B) {
+            } else if (ms >= B) {
                 return 'B';
+            } else {
+                return 'A';
             }
-
-            return 'A';
         }
 
         static int charToMs(char C) {

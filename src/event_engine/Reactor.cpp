@@ -4,6 +4,8 @@
 
 #include "Reactor.h"
 
+#include "Profiler.h"
+
 namespace ipolitic {
     Reactor::Reactor(AssociativeArray<vec_action_stats> * actionStats) {
         this->actionStats = actionStats;
@@ -20,6 +22,7 @@ namespace ipolitic {
                 auto pointB = chrono::system_clock::time_point::clock::now();
                 auto duration = chrono::system_clock::duration(pointB - pointA);
                 auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+
                 cout << "Execution of " << currentAction.UID << " took : " << int_ms.count() << " ms " << endl;
                 action_plurial_stats aps{pointA, duration};
                 if (actionStats->IsItem(currentAction.UID)) {

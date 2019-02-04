@@ -11,12 +11,13 @@
 
 #include "IDKParser.h"
 #include "ThreadGroup.h"
+#include "Profiler.h"
 
 using namespace std;
 
 namespace ipolitic {
     ofstream history;
-
+    Profiler profiler;
     EventLoop::EventLoop(int n) {
         nnb_reactor = n > 0 ? n : nb_reactor;
         cout << "Starting event loop with " << nnb_reactor << " reactors. " << endl;
@@ -36,6 +37,7 @@ namespace ipolitic {
                 cout << "Starting reactor #" << reactors.size() << " in group n° " << i << endl;
                 reactors.push_back(new Reactor(&actionStats));
                 reactors[reactors.size() - 1]->run();
+//                reactors[reactors.size() - 1]->pro = &profiler,
             }
         }
     }
@@ -77,10 +79,7 @@ namespace ipolitic {
     }
 
     void EventLoop::run() {
-        IDKParser idk;
-        idk.initHistory();
-        idk.loadFromFile();
-
+        profiler.run(&shouldStop);
         this->rThread = thread([this]() -> void {
             this->reactorThread();
         });
@@ -93,5 +92,6 @@ namespace ipolitic {
         }
         shouldStop = true;
         rThread.join();
+        profiler.rThread.join();
     }
 }
