@@ -72,7 +72,7 @@ int main ()
     for (long i = 0 ; i < amountOfActionName; i += 1) {
         cout << "i="<<i<<" name="<<cpy.GetItemName(i) << " times="<<cpy.operator[](i).executionTimes.size() << endl;
     }
-
+    sleep(5);
     cout << "Stopping ... " << endl;
     el->stop();
     cout << "Shutdown" << endl;

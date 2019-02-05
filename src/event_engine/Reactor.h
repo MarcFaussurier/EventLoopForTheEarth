@@ -12,6 +12,7 @@
 
 #include "action.h"
 #include "../util/AssociativeArray.hpp"
+#include "Profiler.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ namespace ipolitic {
     class Reactor {
         AssociativeArray<vec_action_stats> * actionStats;
     public:
+        Profiler * pro;
         mutex baction_mutex;
         Reactor(AssociativeArray<vec_action_stats> * actionStats);
         thread rThread;

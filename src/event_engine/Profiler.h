@@ -9,10 +9,9 @@
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>         // std::chrono::seconds
 #include <vector>
-
 #include "./../util/AssociativeArray.h"
 #include "IDKParser.h"
-#include "ThreadGroup.h"
+#include "./ThreadGroup.h"
 
 using namespace std;
 
@@ -32,79 +31,12 @@ namespace ipolitic {
         IDKParser idk;
         thread rThread;
         bool * shouldExit;
-        void profiler_thread() {
-            auto f = [](int * avg, int * cnt, int * t) -> void {
-                *avg = (
-                               *avg   *  *cnt + *t
-                       ) / ++*cnt;
-            };
+        void profiler_thread();
 
+        void run(bool * shouldExit);
 
-            while(!*shouldExit) {
-                if (!innerActions.empty()) {
-                    innerMutex.lock();
-                    profiler_item currentAction = innerActions.at(0);
-                    // if action is new, we create it
-                    if (!actionStats.IsItem(currentAction.action_name)) {
-                        actionStats.AddItem(currentAction.action_name, *new IDKParser::actions_data);
-                    }
-                    // we append given stats to the average
-                    char out = ThreadGroup::MsToChar(currentAction.duration);
-                    switch (out) {
-                        case 'A':
-                            f   (
-                                    &actionStats.operator[](currentAction.action_name).A.avg,
-                                    &actionStats.operator[](currentAction.action_name).A.count,
-                                    &currentAction.duration
-                            );
-                            break;
-                        case 'B':
-                            f   (
-                                    &actionStats.operator[](currentAction.action_name).B.avg,
-                                    &actionStats.operator[](currentAction.action_name).B.count,
-                                    &currentAction.duration
-                            );
-                            break;
-                        case 'C':
-                            f   (
-                                    &actionStats.operator[](currentAction.action_name).C.avg,
-                                    &actionStats.operator[](currentAction.action_name).C.count,
-                                    &currentAction.duration
-                            );
-                            break;
-                        case 'D':
-                            f   (
-                                    &actionStats.operator[](currentAction.action_name).D.avg,
-                                    &actionStats.operator[](currentAction.action_name).D.count,
-                                    &currentAction.duration
-                            );
-                            break;
-                        default:
-                            break;
-                    }
-                    innerActions.erase(innerActions.begin());
-                    innerMutex.unlock();
-                }
-                this_thread::sleep_for(chrono::seconds(2));
-            }
-        }
-
-        void run(bool * shouldExit) {
-            actionStats = idk.loadFromFile();
-            this->shouldExit = shouldExit;
-            actionStats = idk.loadFromFile();
-            this->rThread = thread([this]() -> void {
-                this->profiler_thread();
-            });
-        }
-
-        void insertDuration(string name, int durationMs) {
-            innerMutex.lock();
-            innerActions.push_back(*new profiler_item{name, durationMs});
-            innerMutex.unlock();
-        }
+        void insertDuration(string name, int durationMs);
     };
 }
-
 
 #endif //NALP_PROFILER_H

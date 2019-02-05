@@ -9,11 +9,17 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <math.h>
+#include <sstream>
 
 #include "../util/AssociativeArray.hpp"
 
 #include "action.h"
 #include "Reactor.h"
+#include "ThreadGroup.h"
+#include "IDKParser.h"
+#include "Profiler.h"
 
 using namespace std;
 
@@ -29,6 +35,7 @@ namespace ipolitic {
         int nnb_reactor = 0;
         mutex action_mutex;
     public:
+        Profiler profiler;
         bool shouldStop = false;
         AssociativeArray<vec_action_stats> getAssocArrCpy();
         int getMinReactor();

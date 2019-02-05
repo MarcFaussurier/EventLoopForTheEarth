@@ -7,7 +7,7 @@
 
 #include <algorithm>
 
-#include "../util/AssociativeArray.h"
+#include "../util/AssociativeArray.hpp"
 
 namespace ipolitic {
     class ThreadGroup {
@@ -22,45 +22,11 @@ namespace ipolitic {
                                         C_percent = 20,
                                         D_percent = 10;
 
-        static AssociativeArray<float> GetThreadsPerGroup(int nbThreads) {
-            const float total = A_percent + B_percent + C_percent + D_percent;
-            cout << "In GetThreadsPerGroup with nbThreads=" << nbThreads << endl;
-            auto output = new AssociativeArray<float>();
-            output->AddItem("A", (A_percent) * nbThreads / total);
-            cout << "A=" << (A_percent) * nbThreads / total << endl;
-            output->AddItem("B", (B_percent) * nbThreads / total);
-            cout << "B=" << (B_percent) * nbThreads / total << endl;
-            output->AddItem("C", (C_percent) * nbThreads / total);
-            cout << "C=" << (C_percent) * nbThreads / total << endl;
-            output->AddItem("D", (D_percent) * nbThreads / total);
-            cout << "D=" << (D_percent) * nbThreads / total << endl;
-            return *output;
-        }
+        static AssociativeArray<float> GetThreadsPerGroup(int nbThreads);
 
-        static char MsToChar(int ms) {
-            if (ms >= D) {
-                return 'D';
-            } else if (ms >= C) {
-                return 'C';
-            } else if (ms >= B) {
-                return 'B';
-            } else {
-                return 'A';
-            }
-        }
+        static char MsToChar(int ms);
 
-        static int charToMs(char C) {
-           switch(C) {
-               case 'A':
-                   return A;
-               case 'B':
-                   return B;
-               case 'C':
-                   return C;
-               default:
-                   return D;
-           }
-        }
+        static int charToMs(char C);
     };
 }
 

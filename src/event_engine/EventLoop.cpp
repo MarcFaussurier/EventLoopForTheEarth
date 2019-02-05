@@ -1,23 +1,12 @@
 //
 // Created by marc on 29/12/18.
 //
-
-#include <string>
-#include <math.h>
-#include <sstream>
-
-
 #include "EventLoop.h"
-
-#include "IDKParser.h"
-#include "ThreadGroup.h"
-#include "Profiler.h"
 
 using namespace std;
 
 namespace ipolitic {
     ofstream history;
-    Profiler profiler;
     EventLoop::EventLoop(int n) {
         nnb_reactor = n > 0 ? n : nb_reactor;
         cout << "Starting event loop with " << nnb_reactor << " reactors. " << endl;
@@ -37,7 +26,7 @@ namespace ipolitic {
                 cout << "Starting reactor #" << reactors.size() << " in group n° " << i << endl;
                 reactors.push_back(new Reactor(&actionStats));
                 reactors[reactors.size() - 1]->run();
-//                reactors[reactors.size() - 1]->pro = &profiler,
+                reactors[reactors.size() - 1]->pro = &profiler;
             }
         }
     }
