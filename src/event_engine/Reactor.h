@@ -20,6 +20,7 @@ namespace ipolitic {
     class Reactor {
         AssociativeArray<vec_action_stats> * actionStats;
     public:
+        char group = 'A';
         Profiler * pro;
         mutex baction_mutex;
         Reactor(AssociativeArray<vec_action_stats> * actionStats);

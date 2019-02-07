@@ -23,8 +23,10 @@ namespace ipolitic {
             s = ss.str();
             int nbThread = (int) round(threadsPerGroup.operator[](s));
             for (int k = 0; k < nbThread; k += 1 ) {
+
                 cout << "Starting reactor #" << reactors.size() << " in group n° " << i << endl;
                 reactors.push_back(new Reactor(&actionStats));
+                reactors[reactors.size() - 1]->group = i ;
                 reactors[reactors.size() - 1]->run();
                 reactors[reactors.size() - 1]->pro = &profiler;
             }
@@ -35,6 +37,8 @@ namespace ipolitic {
         return this->actionStats;
     }
 
+
+    // todo : rewrite bellow using profiler
     int EventLoop::getMinReactor() {
         int minIndex = 0;
         int minVal = (int) reactors[minIndex]->actions.size();
