@@ -46,9 +46,11 @@ namespace ipolitic {
             for (long i = 0; i < data_length; i += 1) {
                 string current_key = data.GetItemName(i);
                 output += current_key + ":\n";
+                cout << current_key << endl;
                 actions_data mem = data.operator[](i);
                 for (long y = 0; y <= 3; y += 1) {
                     char currentChar = (char) ('A' + y);
+                    cout << "char : " << currentChar << endl;
                     actions_data_item gs;
                     switch (currentChar) {
                         case 'A':
@@ -71,6 +73,9 @@ namespace ipolitic {
                     unsigned long x = 0;
                     output +=
                             "\t" + avg + std::string( (x = nb_space_separator - avg.length()) > 0 ? x : 1, ' ')
+                            + "=> " + count + "\n";
+
+                    cout << "\t" + avg + std::string( (x = nb_space_separator - avg.length()) > 0 ? x : 1, ' ')
                             + "=> " + count + "\n";
                 }
             }
@@ -101,15 +106,13 @@ namespace ipolitic {
             this->IDKfstream = fstream(IDKParser::cacheFileName);
             AssociativeArray<vec_action_stats> gotHistory;
             vec_action_stats currentItem;
+            bool isFirstAItem = true;
             if (this->IDKfstream.is_open()) {
                 actions_data currentInnerMemory = actions_data{};
                 string currentKey;
-                int i = 0;
-                for (; getline(this->IDKfstream, line); i+=1) {
-                    if (i > 3) {
-                        break;
-                    }
-                    char currentChar = (char) ('A' + i);
+                int y = 0;
+                char currentChar = (char) ('A');
+                for (; getline(this->IDKfstream, line); y=y+1) {
                     string bline(line);
                     std::size_t foundOne = bline.find(':');
                     std::size_t foundTwo = bline.find("=>");
@@ -130,6 +133,13 @@ namespace ipolitic {
                         }
                         currentKey = actionName;
                         continue;
+                    } else if (foundOne == string::npos && foundTwo != string::npos) {
+                        if ((currentChar >= 'D')|| isFirstAItem ) {
+                            currentChar = 'A';
+                            isFirstAItem = false;
+                        } else {
+                            currentChar = (char) (currentChar + 1);
+                        }
                     }
                     string leftSide = "", rightSide = "";
                     bool currentIsLeft = true;
@@ -167,7 +177,7 @@ namespace ipolitic {
                             currentInnerMemory.D = currentGrpStats;
                             break;
                     }
-                    cout << "left : " << leftSide << " right : " << rightSide << endl;
+                    cout << "left : " << leftSide << " right : " << rightSide << "current char : " << currentChar<< endl;
                 }
                 if (!currentKey.empty()) {
                     output.AddItem(currentKey, currentInnerMemory);

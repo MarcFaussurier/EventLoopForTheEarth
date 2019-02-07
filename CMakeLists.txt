@@ -21,11 +21,16 @@ include_directories(${LUAJIT_INCLUDE_DIR})
 find_package(ZLIB)
 
 # Build the tests executable
-add_executable(tests tests/index.cpp
-        src/util/AssociativeArray.h     src/util/AssociativeArray.hpp
+add_executable(tests
         src/event_engine/action.h       src/event_engine/bpromise.h
         src/event_engine/EventLoop.h    src/event_engine/EventLoop.cpp
-        src/event_engine/Reactor.h      src/event_engine/Reactor.cpp)
+        src/event_engine/Reactor.h      src/event_engine/Reactor.cpp
+        src/event_engine/Profiler.cpp   src/event_engine/Profiler.h
+        src/event_engine/window.cpp     src/event_engine/IDKParser.cpp
+        src/event_engine/IDKParser.h    src/event_engine/ThreadGroup.cpp
+        src/event_engine/ThreadGroup.h  src/event_engine/trim.h
+        tests/index.cpp)
+
 target_link_libraries(tests ${LUAJIT_LIBRARIES})
 target_link_libraries(tests ${OPENSSL_LIBRARIES})
 target_link_libraries(tests ${ZLIB_LIBRARIES})
