@@ -9,6 +9,7 @@
 #include <mutex>
 #include <chrono>
 #include <vector>
+#include <unistd.h>
 
 #include "action.h"
 #include "../util/AssociativeArray.hpp"
@@ -29,8 +30,9 @@ namespace ipolitic {
         bool shouldStop = false;
         void reactorThread();
 
+        float getWaitTime();
 
-        void insertAction(action action);
+        void insertAction(action action, bool stopAfter = false);
 
         void run();
     };

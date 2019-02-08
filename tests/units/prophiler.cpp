@@ -26,6 +26,7 @@ TEST_CASE("PROPHILER_TEST", "[report]")
         run();
         auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(maxActiveReactorTime);
         auto el = new EventLoop(CORE_THREADS_CNT);
+
         el->run();
 
         for (int i = 0; i < taskCount; i += 1) {
@@ -38,7 +39,7 @@ TEST_CASE("PROPHILER_TEST", "[report]")
             }).then([]() -> void {
             });
         }
-        usleep(20000);
+        usleep(200000);
 
         el->stop();
 
@@ -47,6 +48,5 @@ TEST_CASE("PROPHILER_TEST", "[report]")
     cout << "[[AFTER RUN " << datat.operator[]("someTest").A.avg << "]]";
     cout << "[[AFTER RUN " << datat.operator[]("someTest").A.count << "]]";
     newCount = datat.operator[]("someTest").A.count;
-
     REQUIRE((newCount - oldCount) == taskCount);
 }

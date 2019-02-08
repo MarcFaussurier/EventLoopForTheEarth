@@ -36,6 +36,10 @@ namespace ipolitic {
         void run(bool * shouldExit);
 
         void insertDuration(string name, int durationMs);
+
+        int getAverageWaitTime(string name);
+
+        char getAverageWaitGroup(string name);
     };
 }
 

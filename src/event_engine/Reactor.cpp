@@ -35,8 +35,17 @@ namespace ipolitic {
         }
     }
 
-    void Reactor::insertAction(action action) {
+    void Reactor::insertAction(action action, bool stopAfter) {
         baction_mutex.lock();
+        if (stopAfter) {
+            function<void()> cb = action.callback;
+            action.callback = [&]() -> void {
+                sleep(1);
+                cb();
+                sleep(10);
+                this->shouldStop = (bool *) true;
+            };
+        }
         this->actions.push_back(action);
         baction_mutex.unlock();
     };
@@ -45,6 +54,18 @@ namespace ipolitic {
         this->rThread = thread([this]() -> void {
             this->reactorThread();
         });
+    }
+
+    float Reactor::getWaitTime() {
+        int total = 0;
+        int count = 0;
+
+        for (int i = 0; i < this->actions.size(); i++) {
+            total = total + this->pro->getAverageWaitTime(this->actions[i].UID);
+            count++;
+        }
+
+        return total / (count > 0 ? count : 9999999);
     }
 };
 

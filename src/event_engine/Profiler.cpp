@@ -8,10 +8,11 @@
 
 namespace ipolitic {
     void Profiler::profiler_thread() {
-        auto f = [](int * avg, int * cnt, int * t) -> void {
+        auto f = [](float * avg, int * cnt, int * t) -> void {
+            int x;
             *avg = (
                            *avg   *  *cnt + *t
-                   ) / ++*cnt;
+                   ) / ((x = ++*cnt) > 0 ? x : 999999);
         };
 
 
@@ -83,6 +84,26 @@ namespace ipolitic {
         innerMutex.lock();
         innerActions.push_back(*new profiler_item{name, durationMs});
         innerMutex.unlock();
+    }
+
+    int Profiler::getAverageWaitTime(string name) {
+        int x;
+        return (
+                    actionStats.operator[](name).A.avg * actionStats.operator[](name).A.count
+                +   actionStats.operator[](name).B.avg * actionStats.operator[](name).B.count
+                +   actionStats.operator[](name).C.avg * actionStats.operator[](name).C.count
+                +   actionStats.operator[](name).D.avg * actionStats.operator[](name).D.count
+
+                )
+                /
+                ( x = (   actionStats.operator[](name).A.count
+                +   actionStats.operator[](name).B.count
+                +   actionStats.operator[](name).C.count
+                +   actionStats.operator[](name).D.count) > 0 ? x : 99999999) ;
+    }
+
+    char Profiler::getAverageWaitGroup(string name) {
+        return ThreadGroup::MsToChar(this->getAverageWaitTime(name));
     }
 }
 

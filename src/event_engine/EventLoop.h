@@ -38,7 +38,7 @@ namespace ipolitic {
         Profiler profiler;
         bool shouldStop = false;
         AssociativeArray<vec_action_stats> getAssocArrCpy();
-        int getMinReactor();
+        int getMinReactor(action currentAction);
         void reactorThread();
         void insertAction(string UID, function<void()> callback);
         EventLoop(int n);

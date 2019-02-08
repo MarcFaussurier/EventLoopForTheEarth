@@ -23,7 +23,7 @@ namespace ipolitic {
         fstream IDKfstream;
 
         struct actions_data_item {
-            int avg = 0;
+            float avg = 0;
             int count = 0;
         };
 
