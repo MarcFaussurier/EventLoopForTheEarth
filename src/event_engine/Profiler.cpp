@@ -63,6 +63,11 @@ namespace ipolitic {
                 }
                 innerActions.erase(innerActions.begin());
                 innerMutex.unlock();
+
+                if (rand() % 10 + 1 <= 1) {
+                    this->idk.save(actionStats);
+                    cout << "file saved" << endl;
+                }
             } else {
                 this_thread::sleep_for(chrono::milliseconds(100));
             }
