@@ -62,7 +62,7 @@ namespace ipolitic {
                 return i;
             }
         }
-        return 999;
+        return FORCE_THREAD_CREATION;
     }
 
     void EventLoop::reactorThread() {
@@ -73,11 +73,11 @@ namespace ipolitic {
                 action currentAction = actions.at(0);
                 int minIndex = getMinReactor(currentAction);
                 // for really big execution times we create a thread
-                if (minIndex == 999) {
+                if (minIndex == FORCE_THREAD_CREATION) {
                     Reactor * reactor = new Reactor(&this->actionStats);
                     reactor->run();
                     reactor->insertAction(currentAction, true);
-                    cout << "NEW THREAD CREATED" << endl;
+                    cout << "New thread created for action {" << currentAction.UID << "} (thread pool is busy - or - action was profiled as too long)" << endl;
                 } else {
                     actions.erase(actions.begin());
                     cout << "action #" << actions.size() << " (" << currentAction.UID << ") sent to thread " << minIndex

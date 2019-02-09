@@ -35,6 +35,7 @@ namespace ipolitic {
         int nnb_reactor = 0;
         mutex action_mutex;
     public:
+        const int FORCE_THREAD_CREATION = 999;
         Profiler profiler;
         bool shouldStop = false;
         AssociativeArray<vec_action_stats> getAssocArrCpy();
