@@ -9,8 +9,8 @@
 #include <iostream>
 #include <fstream>
 
-#include "./../util/AssociativeArray.hpp"
-#include "./action.h"
+#include "AssociativeArray.hpp"
+#include "../event_engine/action.h"
 
 #include "trim.h"
 

@@ -24,9 +24,9 @@ namespace ipolitic {
 
         static AssociativeArray<float> GetThreadsPerGroup(int nbThreads);
 
-        static char MsToChar(int ms);
+        static char MsToChar(float ms);
 
-        static int charToMs(char C);
+        static float charToMs(char C);
     };
 }
 

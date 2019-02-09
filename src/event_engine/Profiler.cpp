@@ -63,9 +63,10 @@ namespace ipolitic {
                 }
                 innerActions.erase(innerActions.begin());
                 innerMutex.unlock();
+            } else {
+                this_thread::sleep_for(chrono::milliseconds(100));
             }
             //cout << "PROHILER WAITING " << endl;
-            //this_thread::sleep_for(chrono::seconds(2));
 
         }
 
@@ -86,8 +87,8 @@ namespace ipolitic {
         innerMutex.unlock();
     }
 
-    int Profiler::getAverageWaitTime(string name) {
-        int x;
+    float Profiler::getAverageWaitTime(string name) {
+        float x;
         return (
                     actionStats.operator[](name).A.avg * actionStats.operator[](name).A.count
                 +   actionStats.operator[](name).B.avg * actionStats.operator[](name).B.count

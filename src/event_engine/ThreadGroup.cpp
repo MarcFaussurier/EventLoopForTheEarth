@@ -20,7 +20,7 @@ namespace ipolitic {
         return *output;
     }
 
-    char ThreadGroup::MsToChar(int ms) {
+    char ThreadGroup::MsToChar(float ms) {
         if (ms >= D) {
             return 'D';
         } else if (ms >= C) {
@@ -32,7 +32,7 @@ namespace ipolitic {
         }
     }
 
-    int ThreadGroup::charToMs(char C) {
+    float ThreadGroup::charToMs(char C) {
         switch(C) {
             case 'A':
                 return A;

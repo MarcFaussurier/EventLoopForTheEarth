@@ -72,12 +72,12 @@ namespace ipolitic {
                 action_mutex.lock();
                 action currentAction = actions.at(0);
                 int minIndex = getMinReactor(currentAction);
+                // for really big execution times we create a thread
                 if (minIndex == 999) {
-                    // todo : fix bellow
-                    // rec.push_back(*new Reactor(&this->actionStats));
-                    // rec[(rec.size() - 1)].run();
-                    // create a thread that will be deleted after execution of task
-                    // rec[(rec.size() - 1)].insertAction(currentAction, true);
+                    Reactor * reactor = new Reactor(&this->actionStats);
+                    reactor->run();
+                    reactor->insertAction(currentAction, true);
+                    cout << "NEW THREAD CREATED" << endl;
                 } else {
                     actions.erase(actions.begin());
                     cout << "action #" << actions.size() << " (" << currentAction.UID << ") sent to thread " << minIndex

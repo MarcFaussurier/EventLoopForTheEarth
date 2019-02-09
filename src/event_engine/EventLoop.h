@@ -18,7 +18,7 @@
 #include "action.h"
 #include "Reactor.h"
 #include "ThreadGroup.h"
-#include "IDKParser.h"
+#include "../util/IDKParser.hpp"
 #include "Profiler.h"
 
 using namespace std;

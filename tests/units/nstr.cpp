@@ -2,6 +2,8 @@
 // Created by marc on 30/11/18
 //
 
+#include "./../../src/tests_header.h"
+
 TEST_CASE("true assert", "[report]")
 {
     REQUIRE(true);
