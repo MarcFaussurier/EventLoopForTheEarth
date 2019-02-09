@@ -17,6 +17,7 @@
 #include "event_engine/Reactor.h"
 #include "event_engine/bpromise.h"
 #include "event_engine/EventLoop.h"
+#include "http_server/web.h"
 
 using namespace std;
 using namespace ipolitic;
@@ -47,34 +48,9 @@ int main ()
     auto el = new EventLoop(CORE_THREADS_CNT);
     el->run();
 
-    for (int i = 0; i < 10; i += 1) {
-        Defer nextTest = bNewPromise(el,"someTest", [el](Defer d) -> void {
-            cout << "Promise before resolve" << endl;
-            d.resolve();
-        }).then([el]() -> Defer {
-            cout << "After resolve" << endl;
-            return bNewPromise(el,"someTest2", [](Defer d) -> void {
-                cout << "Promise before resolve2" << endl;
-                d.resolve();
-            });
-        }).then([]() -> void {
-            cout << "resolved2" << endl;
-        });
-    }
+    runServer(el);
 
-    sleep(2);
-
-    cout << "==========================================" << endl;
-    cout << "Benchmarking results  : " << endl;
-
-    AssociativeArray<vec_action_stats> cpy = el->getAssocArrCpy();
-    long amountOfActionName = cpy.Size();
-    for (long i = 0 ; i < amountOfActionName; i += 1) {
-        cout << "i="<<i<<" name="<<cpy.GetItemName(i) << " times="<<cpy.operator[](i).executionTimes.size() << endl;
-    }
-    sleep(5);
-    cout << "Stopping ... " << endl;
+    sleep(3);
     el->stop();
-    cout << "Shutdown" << endl;
     return 0;
 }

@@ -10,10 +10,10 @@ goToLibs;#======================================================================
 # MacOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)";
-    brew install terminal-notifier;
-    brew install cmake;
-    brew install PkgConfig;
-    brew install fswatch;
+    brew install        terminal-notifier;
+    brew install        cmake;
+    brew install        PkgConfig;
+    brew install        fswatch;
     echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.bash_profile;       # built-in macos SSL
 
 # Linux
@@ -22,7 +22,6 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     sudo apt install    cmake;
     sudo apt install    openssl;
     sudo apt install    libssl-dev;
-
 # Other os
 else
     printf "${RED} Your OS ${NC}${CYAN}$OSTYPE${NC}${RED} is not currently supported.${NC}\n";
