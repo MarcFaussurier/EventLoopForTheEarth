@@ -43,7 +43,7 @@ namespace ipolitic {
                 sleep(1);
                 cb();
                 sleep(10);
-                this->shouldStop = (bool *) true;
+                this->shouldStop = true;
             };
         }
         this->actions.push_back(action);

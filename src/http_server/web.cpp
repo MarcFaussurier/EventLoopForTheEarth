@@ -192,15 +192,22 @@ void serve_static(int fd, char *filename, int filesize)
 void get_filetype(char *filename, char *filetype)
 {
     if (strstr(filename, ".html"))
-	strcpy(filetype, "text/html");
+	    strcpy(filetype, "text/html");
+
     else if (strstr(filename, ".gif"))
-	strcpy(filetype, "image/gif");
+	    strcpy(filetype, "image/gif");
+
     else if (strstr(filename, ".png"))
-	strcpy(filetype, "image/png");
+	    strcpy(filetype, "image/png");
+
     else if (strstr(filename, ".jpg"))
-	strcpy(filetype, "image/jpeg");
+	    strcpy(filetype, "image/jpeg");
+
+    else if (strstr(filename, ".css"))
+        strcpy(filetype, "text/css");
+
     else
-	strcpy(filetype, "text/plain");
+	    strcpy(filetype, "text/plain");
 }
 /* $end serve_static */
 

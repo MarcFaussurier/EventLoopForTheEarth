@@ -31,7 +31,8 @@ TEST_CASE("PROPHILER_TEST", "[report]")
         el->run();
 
         for (int i = 0; i < taskCount; i += 1) {
-            Defer nextTest = bNewPromise(el,"someTest"+to_string(i), [el](Defer d) -> void {
+            Defer nextTest = bNewPromise(el,"someTest"+to_string(i), [&](Defer d) -> void {
+                this_thread::sleep_for(chrono::milliseconds(i * 800));
                 d.resolve();
             }).then([el]() -> Defer {
                 return bNewPromise(el,"someTest__", [](Defer d) -> void {
