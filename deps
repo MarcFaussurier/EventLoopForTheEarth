@@ -57,6 +57,6 @@ install promise     master          https://github.com/MarcFaussurier/promise-cp
 install jaxedit     master          https://github.com/zohooo/jaxedit.git "cp -R ./ ../../www/libs/jaxedit";                                            #
 
 # Maths keyboard
-install gupy        master          https://github.com/daniel3735928559/guppy.git "npm install && npm run build && cp -R build ../../www/libs/%LIBNAME% && cp -R site ../../www/libs/%LIBNAME%";                              #
+install guppy        master          https://github.com/daniel3735928559/guppy.git "npm install && npm run build && mkdir -p build/ ../../www/libs/%LIBNAME%/build && mkdir -p site/ ../../www/libs/%LIBNAME%/site && cp -R build/ ../../www/libs/%LIBNAME%/build && cp -R site ../../www/libs/%LIBNAME%";                              #
 
 checkForRemovedDependencies; #  ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
