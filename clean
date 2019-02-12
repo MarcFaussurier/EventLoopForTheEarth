@@ -13,3 +13,7 @@ rmdir cmake-build-debug;
 
 # removing project dependencies
 rmdir libs;
+
+
+# removing built web dependencies
+rmdir www/libs;

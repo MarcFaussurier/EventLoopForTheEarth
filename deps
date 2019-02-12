@@ -14,6 +14,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     brew install        cmake;
     brew install        PkgConfig;
     brew install        fswatch;
+    brew install        npm;
     echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' >> ~/.bash_profile;       # built-in macos SSL
 
 # Linux
@@ -22,6 +23,7 @@ elif [[ "$OSTYPE" == "linux-gnu" ]]; then
     sudo apt install    cmake;
     sudo apt install    openssl;
     sudo apt install    libssl-dev;
+    sudo apt install    npm;
 # Other os
 else
     printf "${RED} Your OS ${NC}${CYAN}$OSTYPE${NC}${RED} is not currently supported.${NC}\n";
@@ -50,5 +52,11 @@ install serializer  master          https://github.com/eyalz800/serializer.git;
 
 # A JS-like promise helper
 install promise     master          https://github.com/MarcFaussurier/promise-cpp.git;                                #
+
+# Latex for the browser
+install jaxedit     master          https://github.com/zohooo/jaxedit.git "cp -R ./ ../../www/libs/jaxedit";                                            #
+
+# Maths keyboard
+install gupy        master          https://github.com/daniel3735928559/guppy.git "npm install && npm run build && cp -R build ../../www/libs/%LIBNAME% && cp -R site ../../www/libs/%LIBNAME%";                              #
 
 checkForRemovedDependencies; #  ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~

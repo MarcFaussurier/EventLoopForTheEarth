@@ -1,4 +1,4 @@
-# Locate Lua library
+# Locate Lua libs
 # This module defines
 #  LUAJIT_FOUND, if false, do not try to link to Lua
 #  LUAJIT_LIBRARIES

@@ -69,7 +69,11 @@ function install {
     # we run existing build commands if given
     if [[ ! -z $4 ]]; then
         cd ./$1;
-        eval $4;
+        firstString=$4;
+        secondString=$1;
+        toeval=${firstString//%LIBNAME%/$secondString};
+        echo "${toeval}";
+        eval "${toeval}";
         cd ./../;
     fi;
     # then we add the lib to the installed ones
