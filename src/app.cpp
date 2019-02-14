@@ -1,5 +1,4 @@
 // promise example
-#include "./luatest.cpp"
 
 #include <iostream>       // cout
 #include <functional>     // ref
@@ -31,6 +30,18 @@ const int SEND_TO_SUB_THREAD_AFTER_X_MS = 10;
 
 const auto maxActiveReactorTime = std::chrono::milliseconds(SEND_TO_SUB_THREAD_AFTER_X_MS);    // after 10 ms, action will be sent to a secondary reactor thread
 
+const int WAIT_TIME_BEFORE_EXIT = 5;
+
+EventLoop * EVL;
+
+
+void eventLoopHandler(int s){
+    printf("Stopping server with code: %d\n",s);
+    EVL->stop();
+    cout << "Sleeping for " << WAIT_TIME_BEFORE_EXIT << " seconds before exit ... " << endl;
+    sleep(WAIT_TIME_BEFORE_EXIT);
+    exit(1);
+}
 
 /***
  *
@@ -41,15 +52,35 @@ const auto maxActiveReactorTime = std::chrono::milliseconds(SEND_TO_SUB_THREAD_A
 
 int main ()
 {
-    run();
-    auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(maxActiveReactorTime);
-    cout << int_ms.count() << endl;
-    cout << "ms endl" << endl;
+    // registring shell signals
+    struct sigaction sigIntHandler;
+    sigIntHandler.sa_handler = eventLoopHandler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+    sigaction(SIGINT, &sigIntHandler, NULL);
+
+    /*
+    auto onRunHook = []() -> void {
+        // run the lua script
+        LuaManager Lmgr;
+        Lmgr.f(3,5);
+        Lmgr.close();
+    };
+
+    auto onExitHook = []() -> void {
+        // run the lua script
+        LuaManager Lmgr;
+        Lmgr.f(3,5);
+        Lmgr.close();
+    };
+     */
+
+    // run the event loop
     auto el = new EventLoop(CORE_THREADS_CNT);
+    EVL = el;
     el->run();
-
     runServer(el);
-
+    // exit if server stopped
     sleep(3);
     el->stop();
     return 0;

@@ -16,7 +16,7 @@ int runServer(EventLoop * ev)
     struct sockaddr_storage clientaddr;
 
     listenfd = Open_listenfd(port);
-    while (1) {
+    while (!ev->shouldStop) {
         clientlen = sizeof(clientaddr);
         connfd = Accept(listenfd, (SA *)&clientaddr, &clientlen); //line:netp:tiny:accept
         Getnameinfo((SA *) &clientaddr, clientlen, hostname, MAXLINE,
@@ -42,7 +42,7 @@ int runServer(EventLoop * ev)
         }                                                    //line:netp:doit:endrequesterr
         read_requesthdrs(&rio);
         is_static = parse_uri(uri, filename, cgiargs);
-        Defer nextTest = bNewPromise(ev, filename, [connfd, filename, is_static, uri, cgiargs, buf](Defer d) -> void {
+        Defer nextTest = bNewPromise(ev, filename, [ev, connfd, filename, is_static, uri, cgiargs, buf](Defer d) -> void {
             const char *  _filename = &(filename[0]);
             bool    _is_static = is_static;
             const char *  _uri = &(uri[0]);
@@ -50,7 +50,7 @@ int runServer(EventLoop * ev)
             const char *  _buf = &(buf[0]);
             int     _fd = connfd;
 
-            doit(_filename, _is_static, _uri, _cgiargs, _buf, _fd);                                             //line:netp:tiny:doit
+            doit(ev, _filename, _is_static, _uri, _cgiargs, _buf, _fd);                                             //line:netp:tiny:doit
             Close(connfd);
             d.resolve();
         });
@@ -63,7 +63,7 @@ int runServer(EventLoop * ev)
  * doit - handle one HTTP request/response transaction
  */
 /* $begin doit */
-void doit(const char * filename, bool is_static, const char * uri, const char *cgiargs, const char * buf, int fd)
+void doit(EventLoop * ev, const char * filename, bool is_static, const char * uri, const char *cgiargs, const char * buf, int fd)
 {
     struct stat sbuf;
 
@@ -84,8 +84,10 @@ void doit(const char * filename, bool is_static, const char * uri, const char *c
     }
     cout << "New char " << newChr << endl;
     if (stat(newChr, &sbuf) < 0) {                     //line:netp:doit:beginnotfound
-	clienterror(fd, newChr, "404", "Not found",
+        ev->Lmgr.f(3,5);
+	    clienterror(fd, newChr, "404", "Not found",
 		    "Tiny couldn't find this file");
+
 	return;
     }                                              //line:netp:doit:endnotfound
 

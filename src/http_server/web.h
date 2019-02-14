@@ -12,7 +12,7 @@
 using namespace ipolitic;
 
 int runServer(EventLoop * ev);
-void doit(const char * filename, bool is_static, const char * uri, const char *cgiargs,  const char * buf, int fd);
+void doit(EventLoop * ev, const char * filename, bool is_static, const char * uri, const char *cgiargs,  const char * buf, int fd);
 void read_requesthdrs(rio_t *rp);
 int parse_uri(char *uri, char *filename, char *cgiargs);
 void serve_static(int fd, char *filename, int filesize);

@@ -20,6 +20,7 @@
 #include "ThreadGroup.h"
 #include "../util/IDKParser.hpp"
 #include "Profiler.h"
+#include "./../luatest.cpp"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ namespace ipolitic {
         int nnb_reactor = 0;
         mutex action_mutex;
     public:
+        LuaManager Lmgr;
         const int FORCE_THREAD_CREATION = 999;
         Profiler profiler;
         bool shouldStop = false;

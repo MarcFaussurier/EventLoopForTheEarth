@@ -24,7 +24,6 @@ TEST_CASE("PROPHILER_TEST", "[report]")
         int oldCount = 0, newCount = 0;
         cout << "[[BEFORE RUN " << DATA.operator[]("someTest").A.avg << "]]";
         oldCount = DATA.operator[]("someTest__").A.count;
-        run();
         auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(maxActiveReactorTime);
         auto el = new EventLoop(CORE_THREADS_CNT);
 
