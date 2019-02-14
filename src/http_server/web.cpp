@@ -84,11 +84,14 @@ void doit(EventLoop * ev, const char * filename, bool is_static, const char * ur
     }
     cout << "New char " << newChr << endl;
     if (stat(newChr, &sbuf) < 0) {                     //line:netp:doit:beginnotfound
-        ev->Lmgr.f(3,5);
-	    clienterror(fd, newChr, "404", "Not found",
-		    "Tiny couldn't find this file");
-
-	return;
+        string res = ev->Lmgr.onRequest(filename,uri, cgiargs, buf, fd);
+        if (res.empty()) {
+            clienterror(fd, newChr, "404", "Not found",
+                        "Tiny couldn't find this file");
+        } else {
+            clienterror(fd, newChr, "200", "GOT RES", (char *) res.c_str());
+        }
+	    return;
     }                                              //line:netp:doit:endnotfound
 
     if (is_static) { /* Serve static content */

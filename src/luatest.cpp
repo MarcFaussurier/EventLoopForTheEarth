@@ -43,6 +43,36 @@ public:
         return z;
     }
 
+    string onRequest(const char * filename, const char * uri, const char *cgiargs, const char * buf, int fd) {
+        const char * z;
+
+        /* push functions and arguments */
+        lua_getglobal(L, "onRequest");  /* function to be called */
+        lua_pushstring(L, filename);   /* push 1st argument */
+        lua_pushstring(L, uri);   /* push 2nd argument */
+        lua_pushstring(L, cgiargs);
+        lua_pushstring(L, buf);   /* push 2nd argument */
+        lua_pushnumber(L, fd);
+        /* do the call (2 arguments, 1 result) */
+        if (lua_pcall(L, 5, 1, 0) != 0)
+            printf("error running function `onRequest':  %s \n", lua_tostring(L, -1));
+
+        /* retrieve result */
+        if (!lua_isboolean(L, -1))
+            printf("function `onRequest' must return a boolean");
+        z = lua_tostring(L, -1);
+        string str = string(z);
+        if (!str.empty()) {
+            cout << "Lua script returned true" << endl;
+            return str;
+        } else {
+            cout << "Lua script return false" << endl;
+            return "";
+        }
+        lua_pop(L, 1);  /* pop returned value */
+        return "";
+    }
+
     LuaManager() {
         int status, result, i;
         double sum;

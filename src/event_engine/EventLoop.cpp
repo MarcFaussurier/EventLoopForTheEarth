@@ -9,7 +9,6 @@ using namespace std;
 namespace ipolitic {
     ofstream history;
     EventLoop::EventLoop(int n) {
-        Lmgr.f(3,5);
         nnb_reactor = n > 0 ? n : nb_reactor;
         cout << "Starting event loop with " << nnb_reactor << " reactors. " << endl;
         // creating threads groups using ThreadGroup.h
