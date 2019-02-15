@@ -58,7 +58,7 @@ public:
             printf("error running function `onRequest':  %s \n", lua_tostring(L, -1));
 
         /* retrieve result */
-        if (!lua_isboolean(L, -1))
+        if (!lua_isstring(L, -1))
             printf("function `onRequest' must return a boolean");
         z = lua_tostring(L, -1);
         string str = string(z);
@@ -86,7 +86,7 @@ public:
         luaL_openlibs(L); /* Load Lua libraries */
 
         /* Load the file containing the script we are going to run */
-        status = luaL_loadfile(L, "./../script.lua");
+        status = luaL_loadfile(L, "./bridge.lua");
         if (status) {
             /* If something went wrong, error message is at the top of */
             /* the stack */
@@ -95,7 +95,6 @@ public:
         }
 
         cout << "Waiting for lua response .... " << endl;
-
         /* Ask Lua to run our little script */
         result = lua_pcall(L, 0, LUA_MULTRET, 0);
         if (result) {
