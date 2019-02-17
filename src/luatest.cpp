@@ -69,8 +69,8 @@ public:
             cout << "Lua script return false" << endl;
             return "";
         }
-        lua_pop(L, 1);  /* pop returned value */
-        return "";
+        // lua_pop(L, 1);  /* pop returned value */
+        // return "";
     }
 
     LuaManager() {
@@ -86,7 +86,7 @@ public:
         luaL_openlibs(L); /* Load Lua libraries */
 
         /* Load the file containing the script we are going to run */
-        status = luaL_loadfile(L, "./bridge.lua");
+        status = luaL_loadfile(L, "./../www_scripts/bridge.lua");
         if (status) {
             /* If something went wrong, error message is at the top of */
             /* the stack */

@@ -161,7 +161,7 @@ namespace ipolitic {
                     }
                     trim(leftSide);
                     actions_data_item currentGrpStats = actions_data_item{};
-                    currentGrpStats.avg = atoi(leftSide.c_str());
+                    currentGrpStats.avg = atof(leftSide.c_str());
                     currentGrpStats.count = atoi(rightSide.c_str());;
                     switch(currentChar) {
                         case 'A':
@@ -177,7 +177,7 @@ namespace ipolitic {
                             currentInnerMemory.D = currentGrpStats;
                             break;
                     }
-                    cout << "left : " << leftSide << " right : " << rightSide << "current char : " << currentChar<< endl;
+                  //  cout << "left : " << leftSide << " right : " << rightSide << "current char : " << currentChar<< endl;
                 }
                 if (!currentKey.empty()) {
                     output.AddItem(currentKey, currentInnerMemory);
