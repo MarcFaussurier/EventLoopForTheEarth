@@ -27,7 +27,7 @@ add_executable(tests
         src/event_engine/Reactor.h      src/event_engine/Reactor.cpp
         src/event_engine/Profiler.cpp   src/event_engine/Profiler.h
         src/util/IDKParser.hpp src/event_engine/ThreadGroup.cpp
-        src/event_engine/ThreadGroup.h src/util/trim.h
+        src/event_engine/ThreadGroup.h src/util/String.hpp
         tests/index.cpp)
 
 target_link_libraries(tests ${LUAJIT_LIBRARIES})
@@ -40,7 +40,7 @@ add_executable(nalpexe src/app.cpp
         src/util/AssociativeArray.h     src/util/AssociativeArray.hpp
         src/event_engine/action.h       src/event_engine/bpromise.h
         src/event_engine/EventLoop.h    src/event_engine/EventLoop.cpp
-        src/event_engine/Reactor.h      src/event_engine/Reactor.cpp src/event_engine/Profiler.cpp src/event_engine/Profiler.h src/util/IDKParser.hpp src/event_engine/ThreadGroup.cpp src/event_engine/ThreadGroup.h src/util/trim.h src/http_server/web_server.cpp src/http_server/web_server.h src/http_server/web.cpp src/http_server/web.h)
+        src/event_engine/Reactor.h      src/event_engine/Reactor.cpp src/event_engine/Profiler.cpp src/event_engine/Profiler.h src/util/IDKParser.hpp src/event_engine/ThreadGroup.cpp src/event_engine/ThreadGroup.h src/util/String.hpp src/http_server/web_server.cpp src/http_server/web_server.h src/http_server/web.cpp src/http_server/web.h src/util/SCFParser.hpp src/util/Files.hpp)
 target_link_libraries(nalpexe ${LUAJIT_LIBRARIES})
 target_link_libraries(nalpexe ${OPENSSL_LIBRARIES})
 target_link_libraries(nalpexe ${ZLIB_LIBRARIES})

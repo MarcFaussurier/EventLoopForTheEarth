@@ -17,6 +17,8 @@
 #include "event_engine/bpromise.h"
 #include "event_engine/EventLoop.h"
 #include "http_server/web.h"
+#include "util/SCFParser.hpp"
+#include "util/Files.hpp"
 
 using namespace std;
 using namespace ipolitic;
@@ -52,6 +54,17 @@ void eventLoopHandler(int s){
 
 int main ()
 {
+    cout << "Fetching all scf files ... " << endl;
+    vector<string> scfFiles = glob("./../www/", ".*.scf", true);
+    cout << "OUTPUT : " << endl;
+    for(unsigned long i = 0; i < scfFiles.size(); i +=1) {
+        cout << scfFiles.at(i) << endl;
+    }
+
+    exit(0);
+
+
+    SCFParser scfParser;
     // registring shell signals
     struct sigaction sigIntHandler;
     sigIntHandler.sa_handler = eventLoopHandler;

@@ -1,0 +1,64 @@
+LOAD_ON START
+
+------------------------------------------------------------------------------------------------------------------
+--  WEB SERVER CONFIGURATION SAMPLE
+------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------
+-- will block connexion to the given url or path
+---------------------------------------------------------
+
+block-connexion {
+
+    -- url to block  (REGEX)
+	url                 "/blocked-url"
+
+
+	-- path to block (REGEX)
+    path                '/blocked-url'
+
+
+    -- if redirection-url is set, and if error_no and redirection-path was not set, the block will act as a redirection (string)
+--	redirection-url     null
+
+
+    -- if redirection-path is set, and if error_no and redirection-url was not set, the block will act as a redirection (string)
+--	redirection-path    null
+
+
+	-- if set, the given error will be shown without redirecting client's URL
+	error_no            503
+
+
+    -- if set, when a connexion will be blocked, the software will look for non-whitelisted URL before blocking
+    enabled-whiteliste  true
+
+}
+
+---------------------------------------------------------
+-- allow some blocked URL and/or PATH for whitelisted ips
+---------------------------------------------------------
+
+whiteliste {
+
+	url                 /blocked-url
+
+
+    path                /blocked-url
+
+    allowed-ips {
+
+        home            127.0.0.1
+
+    }
+}
+---------------------------------------------------------
+-- redirect errors (keys) to the given URL (value)
+--------------------------------------------------------
+
+errors-url {
+
+	404                 /404.html
+
+	503                 /503.html
+}

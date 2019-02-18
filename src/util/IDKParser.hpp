@@ -12,7 +12,7 @@
 #include "AssociativeArray.hpp"
 #include "../event_engine/action.h"
 
-#include "trim.h"
+#include "String.hpp"
 
 using namespace std;
 
