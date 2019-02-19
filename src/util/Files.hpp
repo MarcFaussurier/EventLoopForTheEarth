@@ -69,17 +69,22 @@ namespace ipolitic {
      */
     static inline  std::vector<std::string> glob(std::string directory, std::string filePattern, bool recursively = false) {
         vector<string> files = getdir(directory, filePattern);
-        vector<string> output = files;
+        vector<string> output;
         for (unsigned int i = 0; i < files.size(); i++) {
           if (recursively) {
+              // if got files is a directory, we proceed using recursivity
               if (stringEndsWith(files[i], '/')) {
                   cout << "Found ddirectory: " << files[i].c_str() << endl;
                   vector<string> dataToMerge = glob(files[i], filePattern, recursively);
                   for (unsigned long y = 0; y < dataToMerge.size(); y += 1) {
                       // avoid merging dirs
                       if (!stringEndsWith(dataToMerge.at(y), '/'))
-                          output.push_back(dataToMerge.at(y));
+                         output.push_back(dataToMerge.at(y));
                   }
+              }
+              // else we add the file to the output stack
+              else {
+                  output.push_back(files.at(i));
               }
           }
         }

@@ -61,6 +61,8 @@ int main ()
         cout << scfFiles.at(i) << endl;
     }
 
+    SCFParser scfParser1;
+    scfParser1.loadFrom(scfFiles.at(0));
     exit(0);
 
 

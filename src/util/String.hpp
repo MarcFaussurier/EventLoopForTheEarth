@@ -8,10 +8,56 @@
 #include <algorithm>
 #include <cctype>
 #include <locale>
+#include <utility>
+#include <sstream>
+#include <vector>
+#include <string>
+
+#include <iostream>
 
 using namespace std;
 
 namespace ipolitic {
+    /**
+     * Will explode the given inputString using the given delimiter and return a vector a string
+     * Act similar as PHP's explode()
+     * @see http://php.net/manual/fr/function.explode.php
+     * @param inputString
+     * @param delimiter
+     * @return
+     */
+    static inline vector<string> explode(string const & inputString, string const & delimiter)
+    {
+        unsigned long inputLen          = inputString.size();
+        unsigned long delimiterSize     = delimiter.size();
+        const char * delimiterCSTR      = delimiter.c_str();
+        const char * inputCSTR          = inputString.c_str();
+        string previousInputSinceLastClean   = "";
+
+        char delimiterBuffer[delimiterSize];
+        vector<string> output;
+
+        // for each input characters
+        for (int i = 0; i < inputLen; i += 1) {
+            // move buffer for making one character free to the end
+            for (int y = 1; y < (delimiterSize - 1) ; y += 1) {
+                delimiterBuffer[y-1] = delimiterBuffer[y];
+            }
+            // add current input character to the buffer, and then trailing null
+            delimiterBuffer[delimiterSize - 1] = inputCSTR[i];
+            delimiterBuffer[delimiterSize]     = '\0';
+
+            // add current character to the element buffer
+            previousInputSinceLastClean += inputString.at(i);
+            if (((int) *delimiterBuffer) == ((int) *delimiterCSTR)) {
+                cout << "LINE BREAK" << endl;
+                output.push_back(previousInputSinceLastClean.substr(0, previousInputSinceLastClean.size() - delimiter.size()));
+                previousInputSinceLastClean = "";
+            }
+        }
+        return output;
+    }
+    
     /**
     * Check for last string character
     * @param str    Input string
@@ -26,9 +72,9 @@ namespace ipolitic {
      *  Will trim left side of the given string
      * @param s     Input string
      */
-    static inline void ltrim(std::string &s) {
-        s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
-            return !std::isspace(ch);
+    static inline void ltrim(string &s) {
+        s.erase(s.begin(),find_if(s.begin(), s.end(), [](int ch) {
+            return !isspace(ch);
         }));
     }
 
@@ -36,9 +82,9 @@ namespace ipolitic {
      * Will trim right side of the given string
      * @param s     Input string
      */
-    static inline void rtrim(std::string &s) {
-        s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
-            return !std::isspace(ch);
+    static inline void rtrim(string &s) {
+        s.erase(find_if(s.rbegin(), s.rend(), [](int ch) {
+            return !isspace(ch);
         }).base(), s.end());
     }
 
@@ -46,7 +92,7 @@ namespace ipolitic {
      * Will trim both sides of the given string
      * @param s     Input string
      */
-    static inline void trim(std::string &s) {
+    static inline void trim(string &s) {
         ltrim(s);
         rtrim(s);
     }
@@ -55,7 +101,7 @@ namespace ipolitic {
      *  Will trim left side of the given string (will copy input)
      * @param s     Input string
      */
-    static inline std::string ltrim_copy(std::string s) {
+    static inline string ltrim_copy(string s) {
         ltrim(s);
         return s;
     }
@@ -64,7 +110,7 @@ namespace ipolitic {
      *  Will trim right side of the given string (will copy input)
      * @param s     Input string
      */
-    static inline std::string rtrim_copy(std::string s) {
+    static inline string rtrim_copy(string s) {
         rtrim(s);
         return s;
     }
@@ -73,7 +119,7 @@ namespace ipolitic {
      *  Will trim both sides of the given string (will copy input)
      * @param s     Input string
      */
-    static inline std::string trim_copy(std::string s) {
+    static inline string trim_copy(string s) {
         trim(s);
         return s;
     }

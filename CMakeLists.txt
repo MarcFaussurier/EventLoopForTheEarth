@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.11)
 project(nalp)
 
 set(CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake-modules)
 # Local path to the local luajit repo
 set(ENV{PATH} ${PROJECT_SOURCE_DIR}/libs/luajit)
