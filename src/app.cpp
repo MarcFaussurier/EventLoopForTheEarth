@@ -11,13 +11,14 @@
 // #include <bits/stdc++.h>
 #include <promise.hpp>
 
+#include <SipYAML.hpp>
+
 #include "event_engine/action.h"
 #include "util/AssociativeArray.hpp"
 #include "event_engine/Reactor.h"
 #include "event_engine/bpromise.h"
 #include "event_engine/EventLoop.h"
 #include "http_server/web.h"
-#include "util/SCFParser.hpp"
 #include "util/Files.hpp"
 
 using namespace std;
@@ -45,6 +46,54 @@ void eventLoopHandler(int s){
     exit(1);
 }
 
+void indent(size_t amount)
+{
+    for (size_t i = 0; i != amount; ++i)
+    {
+        cout << '\t';
+    }
+}
+
+void showYAMLValue(Sip::YAMLDocumentUTF8::Node *node, size_t amount = 0)
+{
+    while (node)
+    {
+        indent(amount);
+        cout << "Node: ";
+        switch (node->type() & 0xF)
+        {
+            case Sip::Sequence:
+                cout << "Sequence";
+                break;
+            case Sip::Mapping:
+                cout << "Mapping";
+                break;
+            case Sip::Comment:
+                cout << "Comment";
+        }
+        cout << endl;
+        if (node->key())
+        {
+            indent(amount);
+            cout << "  Key: \"";
+            cout.write(node->key(), node->keySize());
+            cout << "\"" << endl;
+        }
+        if (node->value())
+        {
+            indent(amount);
+            cout << "  Value: \"";
+            cout.write(node->value(), node->valueSize());
+            cout << "\"" << endl;
+        }
+        if (node->firstChild())
+        {
+            showYAMLValue(node->firstChild(), amount + 1);
+        }
+        node = node->nextSibling();
+    }
+}
+
 /***
  *
  *
@@ -55,40 +104,40 @@ void eventLoopHandler(int s){
 int main ()
 {
     cout << "Fetching all scf files ... " << endl;
-    vector<string> scfFiles = glob("./../www/", ".*.scf", true);
+    vector<string> configFiles = glob("./../www/", ".*.yaml", true);
     cout << "OUTPUT : " << endl;
-    for(unsigned long i = 0; i < scfFiles.size(); i +=1) {
-        cout << scfFiles.at(i) << endl;
+    for(unsigned long i = 0; i < configFiles.size(); i +=1) {
+        cout << configFiles.at(i) << endl;
+
+
+        string line;
+        ifstream myfile (configFiles.at(i));
+        if (myfile.is_open())
+        {
+            string sourceCodeContent;
+            while ( getline (myfile,line) )
+            {
+                cout << line << '\n';
+                sourceCodeContent += line;
+                sourceCodeContent += '\n';
+            }
+            myfile.close();
+            const char* source = sourceCodeContent.c_str();
+            Sip::YAMLDocumentUTF8 doc1;
+            doc1.parse(source);
+            cout << "Iterating through keys: " << endl;
+            showYAMLValue(doc1.firstChild());
+
+        }
+        else cout << "Unable to open file";
     }
 
-    SCFParser scfParser1;
-    scfParser1.loadFrom(scfFiles.at(0));
-    exit(0);
-
-
-    SCFParser scfParser;
     // registring shell signals
     struct sigaction sigIntHandler;
     sigIntHandler.sa_handler = eventLoopHandler;
     sigemptyset(&sigIntHandler.sa_mask);
     sigIntHandler.sa_flags = 0;
     sigaction(SIGINT, &sigIntHandler, NULL);
-
-    /*
-    auto onRunHook = []() -> void {
-        // run the lua script
-        LuaManager Lmgr;
-        Lmgr.f(3,5);
-        Lmgr.close();
-    };
-
-    auto onExitHook = []() -> void {
-        // run the lua script
-        LuaManager Lmgr;
-        Lmgr.f(3,5);
-        Lmgr.close();
-    };
-     */
 
     // run the event loop
     auto el = new EventLoop(CORE_THREADS_CNT);

@@ -19,6 +19,8 @@ include_directories("${PREFIX}cpp-dotenv")
 include_directories("${PREFIX}json")
 include_directories("${PREFIX}promise")
 include_directories("${PREFIX}serializer")
+include_directories("${PREFIX}yamlparser/Source")
+
 include_directories(${LUAJIT_INCLUDE_DIR})
 find_package(ZLIB)
 
@@ -37,12 +39,14 @@ target_link_libraries(tests ${OPENSSL_LIBRARIES})
 target_link_libraries(tests ${ZLIB_LIBRARIES})
 target_link_libraries(tests pthread)
 
+target_link_libraries(tests pthread)
+
 # Build the main executable
 add_executable(nalpexe src/app.cpp
         src/util/AssociativeArray.h     src/util/AssociativeArray.hpp
         src/event_engine/action.h       src/event_engine/bpromise.h
         src/event_engine/EventLoop.h    src/event_engine/EventLoop.cpp
-        src/event_engine/Reactor.h      src/event_engine/Reactor.cpp src/event_engine/Profiler.cpp src/event_engine/Profiler.h src/util/IDKParser.hpp src/event_engine/ThreadGroup.cpp src/event_engine/ThreadGroup.h src/util/String.hpp src/http_server/web_server.cpp src/http_server/web_server.h src/http_server/web.cpp src/http_server/web.h src/util/SCFParser.hpp src/util/Files.hpp)
+        src/event_engine/Reactor.h      src/event_engine/Reactor.cpp src/event_engine/Profiler.cpp src/event_engine/Profiler.h src/util/IDKParser.hpp src/event_engine/ThreadGroup.cpp src/event_engine/ThreadGroup.h src/util/String.hpp src/http_server/web_server.cpp src/http_server/web_server.h src/http_server/web.cpp src/http_server/web.h src/util/Files.hpp)
 target_link_libraries(nalpexe ${LUAJIT_LIBRARIES})
 target_link_libraries(nalpexe ${OPENSSL_LIBRARIES})
 target_link_libraries(nalpexe ${ZLIB_LIBRARIES})

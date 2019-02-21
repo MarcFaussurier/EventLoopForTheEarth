@@ -125,7 +125,7 @@ namespace ipolitic {
                             actionName[i] = *(linePtr + i);
                         }
                         actionName[gotKeySize - 1] = '\0';
-                        cout << "ONE ITEM : " << actionName << endl;
+                        // cout << "ONE ITEM : " << actionName << endl;
                         currentItem = vec_action_stats();
                         if (!currentKey.empty()) {
                             output.AddItem(currentKey, currentInnerMemory);

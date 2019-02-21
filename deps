@@ -57,9 +57,12 @@ install promise     master          https://github.com/MarcFaussurier/promise-cp
 install jaxedit     master          https://github.com/MarcFaussurier/jaxedit.git "cp -R ./ ../../www/libs/jaxedit";                                            #
 
 # Maths keyboard
-install guppy       master         https://github.com/MarcFaussurier/guppy.git "npm install && npm run build && mkdir -p build/ ../../www/libs/%LIBNAME%/build && mkdir -p site/ ../../www/libs/%LIBNAME%/site && cp -R build/ ../../www/libs/%LIBNAME%/build && cp -R site ../../www/libs/%LIBNAME%";                              #
+install guppy       master          https://github.com/MarcFaussurier/guppy.git "npm install && npm run build && mkdir -p build/ ../../www/libs/%LIBNAME%/build && mkdir -p site/ ../../www/libs/%LIBNAME%/site && cp -R build/ ../../www/libs/%LIBNAME%/build && cp -R site ../../www/libs/%LIBNAME%";                              #
 
 # JQuery
 install jquery      master          https://github.com/jquery/jquery.git        "npm install && npm run build && mkdir -p ../../www/libs/%LIBNAME%/dist && cp -R dist/ ../../www/libs/%LIBNAME%/dist"
+
+# ini parser
+install yamlparser   master         https://github.com/MarcFaussurier/SipYAML.git
 
 checkForRemovedDependencies; #  ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~
