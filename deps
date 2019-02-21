@@ -32,22 +32,22 @@ fi;
 
 # * C(++) :
 ##--| lib name |---| branch |------| git repo |------------------------------------------| (c)make command(s) |------#\
-# luaJIT (scripting interpreter)                                                                                      #
+# LuaJIT (scripting interpreter)                                                                                      #
 install luajit      v2.1            https://github.com/MarcFaussurier/LuaJIT_CMake.git  "cmake ./ && make";
 
-# rang (Terminal colour utility)                                                                                      #
+# Rang (terminal colour utility)                                                                                      #
 install rang        master          https://github.com/agauniyal/rang.git;
 
-# Catch2 (Unit testing framework)                                                                                     #
+# Catch2 (unit testing framework)                                                                                     #
 install catch2      master          https://github.com/catchorg/Catch2.git;
 
 # DotEnv (.env file parser)                                                                                           #
 install cpp-dotenv  master          https://github.com/adeharo9/cpp-dotenv.git;
 
-# Json (A .json parser)                                                                                               #
+# Json (a .json parser)                                                                                               #
 install json        master          https://github.com/kazuho/picojson.git;
 
-# Serializer (Save / Load objects)                                                                                    #
+# Serializer (save / load objects)                                                                                    #
 install serializer  master          https://github.com/eyalz800/serializer.git;
 
 # A JS-like promise helper
@@ -62,7 +62,7 @@ install guppy       master          https://github.com/MarcFaussurier/guppy.git 
 # JQuery
 install jquery      master          https://github.com/jquery/jquery.git        "npm install && npm run build && mkdir -p ../../www/libs/%LIBNAME%/dist && cp -R dist/ ../../www/libs/%LIBNAME%/dist"
 
-# ini parser
+# Yaml parser
 install yamlparser   master         https://github.com/MarcFaussurier/SipYAML.git
 
 checkForRemovedDependencies; #  ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~   ~

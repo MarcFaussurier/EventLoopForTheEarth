@@ -65,7 +65,11 @@ namespace ipolitic {
             count++;
         }
 
-        return total / (count > 0 ? count : 9999999);
+        return
+        (count > 0) ?
+            (total / count)
+        :
+            0;
     }
 };
 
