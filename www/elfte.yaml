@@ -1,17 +1,14 @@
 block-connexion:
-  url  : /blocked-url
-  path : /blocked-url
-  redirection-url : null
-  error-no  : 503
-  enabled-whitelist : true
+    url         : /blocked-url
+    path        :   /blocked-url
+    redirection-url : null
+    error-no    : 503
+    enabled-whitelist : true
 whitelist:
-  url         : /blocked-url
-  path        : /blocked-url
-  description : Basketball
-- allowed-ips :
-  home        : 127.0.0.1
-
+    url         : /blocked-url
+    path        : /blocked-url
+    home        : 127.0.0.1
 errors-url:
-  404: /404.html
-  503: /503.html
+    404         : /404.html
+    503         : /503.html
 

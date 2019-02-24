@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.1/leaflet.css" rel="stylesheet" />
+
+    <link href="https://cdn-webgl.wrld3d.com/wrldjs/addons/resources/latest/css/wrld.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/searchbar/latest/searchbar.js"></script>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/indoor_control/latest/indoor_control.js"></script>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/marker_controller/latest/marker_controller.js"></script>
+
+</head>
+
+<body>
+<div style="position: relative">
+    <div id="searchbar-widget-container" class="wrld-widget-container"></div>
+    <div id="indoor-control-widget-container" style="position: absolute; right: 10px; top: 10px; bottom: 26px"></div>
+    <div id="map" style="height: 400px"></div>
+    <script>
+        var map = L.Wrld.map("map", "de7131187a9d88ee8bd49f2f16a066cc", {
+            center: [56.459801, -2.977928],
+            zoom: 18,
+            indoorsEnabled: true
+        });
+
+        var indoorControl = new WrldIndoorControl("indoor-control-widget-container", map);
+
+        var searchbarConfig = {
+            apiKey: "de7131187a9d88ee8bd49f2f16a066cc",
+            skipYelpSearch: true,
+            overrideIndoorSearchMenuItems: true,
+            outdoorSearchMenuItems: [
+                {name: "Around Me", searchTag: "", iconKey: "aroundme"},
+                {name: "Desks", searchTag: "desk", iconKey: "desk"},
+                {name: "Meeting Rooms", searchTag: "meeting_room", iconKey: "meeting_room"}
+            ],
+            locationJumps: [
+                {name: "Dundee", latLng: [56.459801, -2.977928]}
+            ]
+        };
+        var searchbar = new WrldSearchbar("searchbar-widget-container", map, searchbarConfig);
+        var markerController = new WrldMarkerController(map, {
+            searchbar: searchbar
+        });
+
+        searchbar.on("searchresultselect", onSearchResultSelect);
+        searchbar.on("searchresultsclear", clearHighlights);
+
+        markerController.on("searchresultaddmarker", onMarkerAddFromSearchResult);
+
+        function onSearchResultSelect(event) {
+            map.setView(event.result.location.latLng, 20);
+            highlightResult(event.result);
+        }
+
+        function onMarkerAddFromSearchResult(event) {
+            event.marker.on("click", highlightResult.bind(highlightResult, event.result));
+        }
+
+        function highlightResult(result) {
+            clearHighlights();
+            map.indoors.setEntityHighlights(result.data.user_data.highlight, result.data.user_data.highlight_color);
+        }
+
+        function clearHighlights() {
+            map.indoors.clearEntityHighlights();
+        }
+    </script>
+
+</div>
+</body>
+</html>

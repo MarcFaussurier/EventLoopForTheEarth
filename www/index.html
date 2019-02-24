@@ -46,6 +46,7 @@
     <input type="file" id="opensel">
     <div id="menubar" class="busy">
       <span class="btngroup">
+        <button type="button" class="button" disabled=""><span class="btn-name">+ Insert</span></button>
         <span id="menu-new" class="btngroup dropdown-toggle">
           <button type="button" class="button" id="newbtn" disabled><i class="icon-new"></i> <span class="btn-name">New</span></button>
           <ul class="dropdown-menu" id="example">
@@ -255,6 +256,7 @@ Then there exists a point $\xi\in(a,b)$ such that $f(\xi)=0$.
     Guppy.configure("empty_content", "{\\text{Click to start typing math!}}");
     Guppy.use_osk(new GuppyOSK({"goto_tab":"qwerty"}));
     Guppy.configure("buttons", ["osk","settings","symbols","controls"]);
+   //   Guppy.import_latex("  \\displaystyle\\int{ 9  }d a    ");
     g1 = new Guppy("guppy1");
   };
 

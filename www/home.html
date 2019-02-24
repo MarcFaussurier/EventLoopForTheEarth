@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/dist/latest/wrld.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.1/leaflet.css" rel="stylesheet" />
+
+    <link href="https://cdn-webgl.wrld3d.com/wrldjs/addons/resources/latest/css/wrld.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/searchbar/latest/searchbar.js"></script>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/indoor_control/latest/indoor_control.js"></script>
+    <script src="https://cdn-webgl.wrld3d.com/wrldjs/addons/marker_controller/latest/marker_controller.js"></script>
+
+    <style>
+        #wrld-indoor-map-watermark0 {
+           display: none !important;
+        }
+        .leaflet-control-attribution {
+            display: none !important;
+        }
+
+        .homeicon {
+            border-radius: 7px;
+            border:1px solid black;
+            padding: 1em;
+            display: block;
+            width: 4em;
+            height: 4em;
+            padding-top: 34%;
+        }
+
+        .displayIconContainer {
+            width: 4.2em;
+            text-align: center;
+            display: inline-table;
+            margin: 1em;
+        }
+
+        .modal {
+            max-width: 100vw !important;
+        }
+    </style>
+</head>
+
+<body style="margin: 0px !important;">
+<div style="position: relative; font-family: 'Ubuntu', sans-serif;">
+    <p style=" text-align: center;
+    width: 100%;
+    position: absolute;
+    z-index: 99;
+    font-size: larger;
+background-color: rgba(255,255,255,0.6);">19:19</p>
+
+    <p style="
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    z-index: 99;
+    bottom: 0px;
+    font-size: 2.5em;
+    transform: rotate(180deg);
+    "><i class="fas fa-chevron-circle-down" class="btn btn-primary" data-toggle="modal" data-target="#launchpad"></i>
+        </p>
+
+    <div class="modal fade" id="launchpad" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Launchpad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+    <div class="modal-body">
+        <p class="displayIconContainer"><a onclick="$('#launchpad').modal('toggle');$('#iProgress').modal('toggle');"><i class="fas fa-superscript homeicon"></i> iProgress</a></p>
+
+        <p class="displayIconContainer"><i class="fas fa-code homeicon"></i> iCode</p>
+
+        <p class="displayIconContainer"><i class="fas fa-vote-yea homeicon"></i> iPolitic</p>
+
+        <p class="displayIconContainer"><i class="fas fa-newspaper homeicon"></i> iNews</p>
+
+        <p class="displayIconContainer"><i class="fas fa-comments homeicon"></i> iChat</p>
+
+        <p class="displayIconContainer"><i class="fas fa-phone-square homeicon"></i> iCall</p>
+
+        <p class="displayIconContainer"><i class="fas fa-file-archive homeicon"></i> iArchives</p>
+
+        <p class="displayIconContainer"><i class="fas fa-user-circle homeicon"></i>  i</p>
+
+        <p class="displayIconContainer"><i class="fas fa-cogs homeicon"></i> Settings</p>
+
+
+
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="iProgress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="    padding-left: unset !important;
+    padding: unset !important;
+    margin-left: 0px;
+    margin-right: 0px;
+    max-width: 100vw !important;">
+            <div class="modal-content" style="     height: 88vh;
+    top: -1.25em;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="iProgressTitle">Launchpad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe style="    padding: 0px;
+    margin: 0px;
+    display: block;
+    width: 100%;
+    height: 100%;"src="index.html"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="searchbar-widget-container" class="wrld-widget-container"></div>
+    <div id="indoor-control-widget-container" style="position: absolute; right: 10px; top: 10px; bottom: 26px"></div>
+    <div id="map" style="height: 100vh"></div>
+    <script>
+        var map = L.Wrld.map("map", "de7131187a9d88ee8bd49f2f16a066cc", {
+            center: [56.459801, -2.977928],
+            zoom: 18,
+            indoorsEnabled: true
+        });
+
+        var indoorControl = new WrldIndoorControl("indoor-control-widget-container", map);
+
+        var searchbarConfig = {
+            apiKey: "de7131187a9d88ee8bd49f2f16a066cc",
+            skipYelpSearch: true,
+            overrideIndoorSearchMenuItems: true,
+            outdoorSearchMenuItems: [
+                {name: "Around Me", searchTag: "", iconKey: "aroundme"},
+                {name: "Desks", searchTag: "desk", iconKey: "desk"},
+                {name: "Meeting Rooms", searchTag: "meeting_room", iconKey: "meeting_room"}
+            ],
+            locationJumps: [
+                {name: "Dundee", latLng: [56.459801, -2.977928]}
+            ]
+        };
+        var searchbar = new WrldSearchbar("searchbar-widget-container", map, searchbarConfig);
+        var markerController = new WrldMarkerController(map, {
+            searchbar: searchbar
+        });
+
+        searchbar.on("searchresultselect", onSearchResultSelect);
+        searchbar.on("searchresultsclear", clearHighlights);
+
+        markerController.on("searchresultaddmarker", onMarkerAddFromSearchResult);
+
+        function onSearchResultSelect(event) {
+            map.setView(event.result.location.latLng, 20);
+            highlightResult(event.result);
+        }
+
+        function onMarkerAddFromSearchResult(event) {
+            event.marker.on("click", highlightResult.bind(highlightResult, event.result));
+        }
+
+        function highlightResult(result) {
+            clearHighlights();
+            map.indoors.setEntityHighlights(result.data.user_data.highlight, result.data.user_data.highlight_color);
+        }
+
+        function clearHighlights() {
+            map.indoors.clearEntityHighlights();
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</div>
+</body>
+</html>

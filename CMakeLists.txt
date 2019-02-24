@@ -19,7 +19,7 @@ include_directories("${PREFIX}cpp-dotenv")
 include_directories("${PREFIX}json")
 include_directories("${PREFIX}promise")
 include_directories("${PREFIX}serializer")
-include_directories("${PREFIX}yamlparser/Source")
+include_directories("${PREFIX}yamlparser/src")
 
 include_directories(${LUAJIT_INCLUDE_DIR})
 find_package(ZLIB)
