@@ -1,4 +1,4 @@
-Web / HTTP specific stuffs are from Josh Gachnang  (https://github.com/joshgachnang/Homework)
+Credits goes to ovidiucp (https://github.com/ovidiucp/TinyWebServer) for src/http_server files, its a fork from it.
 
 `git clone https://github.com/MarcFaussurier/EventLoopForTheEarth.git yourproject`
 
