@@ -1,3 +1,4 @@
+Web / HTTP specific stuffs are from Josh Gachnang  (https://github.com/joshgachnang/Homework)
 
 `git clone https://github.com/MarcFaussurier/EventLoopForTheEarth.git yourproject`
 
