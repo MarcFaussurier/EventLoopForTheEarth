@@ -1,4 +1,4 @@
-Credits goes to ovidiucp (https://github.com/ovidiucp/TinyWebServer) for src/http_server files, its a fork from it.
+Credits goes to ovidiucp (https://github.com/ovidiucp/TinyWebServer) for src/http_server files
 
 `git clone https://github.com/MarcFaussurier/EventLoopForTheEarth.git yourproject`
 
